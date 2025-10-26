@@ -5,6 +5,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Stability Audit for AI Systems</title>
+  <meta name="theme-color" content="#0f1117" />
   <meta name="description" content="Your AI is unstable. I stabilize it before it becomes a disclosure event. High-priority stability audits for AI / automation / infra teams." />
 
   <!-- Open Graph (preview when you send link) -->
@@ -39,6 +40,20 @@
       line-height:1.5;
       -webkit-font-smoothing:antialiased;
       text-rendering:optimizeLegibility;
+    }
+
+    .socialproof {
+      font-size:.9rem;
+      color:#c9d1d9;
+      margin:.1rem 0 1.25rem;
+      opacity:.9;
+    }
+
+    .copyright {
+      max-width:var(--maxw);
+      margin:2rem auto 0;
+      color:var(--text-dim);
+      opacity:.9;
     }
 
     a {
@@ -285,6 +300,9 @@
     <p class="subhead">
       Runaway latency spikes, safety filter collapse, autoscaling thrash — that’s not “a bug,” that’s an unstable control loop. I find it, show you exactly why it’s happening, and tell you how to kill it.
     </p>
+    <p class="socialproof">
+      Trusted by engineers and founders building critical AI systems.
+    </p>
 
     <div class="offerline">
       <strong>
@@ -292,7 +310,8 @@
       </strong>
     </div>
 
-    <a class="cta-btn" href="#start" aria-label="Jump to how to start the audit">
+    <a class="cta-btn"
+       href="mailto:capyhust@gmail.com?subject=Stability%20Audit%20Request" aria-label="Email to start the Stability Audit">
       Get the Stability Audit →
     </a>
 
@@ -307,7 +326,7 @@
   <!-- SECTION: Instability pain -->
   <section aria-labelledby="why-heading">
     <div class="wrap">
-      <h2 id="why-heading">Instability is not abstract. It’s money, uptime, legal.</h2>
+      <h2 id="why-heading">Instability costs uptime, money, and reputation.</h2>
 
       <div class="grid grid-2">
         <div class="card">
@@ -335,7 +354,7 @@
         </div>
 
         <div class="card">
-          <h3>Rollout 10% → 25% → emergency rollback?</h3>
+          <h3>Rollout 10 → 25 → 0% in one day?</h3>
           <p>
             You’re flying with no ramp governor. That’s reckless from a control
             perspective, and leadership knows it.
@@ -415,6 +434,9 @@
         </a>
 
         <div class="muted-line" style="margin-top:1rem;">
+          No setup, no NDA, no pitch. Just send the screenshots.
+        </div>
+        <div class="muted-line">
           I don’t touch prod. I diagnose. Your team implements.
         </div>
       </div>
@@ -447,6 +469,8 @@
 
   </div>
 </footer>
+
+<div class="copyright wrap">© 2025 Aleksandr Silantev — All rights reserved.</div>
 
 </body>
 </html>
