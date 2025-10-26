@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- META -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Stability Audit for AI Systems</title>
+  <meta name="description" content="Your AI is unstable. I stabilize it before it becomes a disclosure event. High-priority stability audits for AI / automation / infra teams." />
+
+  <!-- Open Graph (preview when you send link) -->
+  <meta property="og:title" content="Stability Audit for AI Systems" />
+  <meta property="og:description" content="If I can’t show you 3 shippable fixes in 90 minutes, you don’t pay." />
+  <meta property="og:type" content="website" />
+
+  <style>
+    :root {
+      --bg-dark:#0f1117;
+      --bg-card:#1a1d29;
+      --text-main:#f9fafb;
+      --text-dim:#9ca3af;
+      --accent:#38bdf8;
+      --border:#2a2f3f;
+      --radius:12px;
+      --maxw:1100px;
+      --card-pad:1.5rem;
+      --section-pad:4rem;
+      --font:-apple-system,BlinkMacSystemFont,"Inter","Roboto","Segoe UI",system-ui,sans-serif;
+    }
+
+    * {
+      box-sizing:border-box;
+    }
+
+    body {
+      margin:0;
+      background-color:var(--bg-dark);
+      color:var(--text-main);
+      font-family:var(--font);
+      line-height:1.5;
+      -webkit-font-smoothing:antialiased;
+      text-rendering:optimizeLegibility;
+    }
+
+    a {
+      color:var(--accent);
+      text-decoration:none;
+    }
+    a:hover,a:focus {
+      text-decoration:underline;
+    }
+
+    header {
+      padding:2rem 1.5rem 3rem;
+      border-bottom:1px solid var(--border);
+      background:
+        radial-gradient(circle at 20% 20%,rgba(56,189,248,.18) 0%,rgba(15,17,23,0) 70%);
+    }
+
+    .wrap {
+      max-width:var(--maxw);
+      margin:0 auto;
+    }
+
+    .badge {
+      display:inline-block;
+      background-color:rgba(56,189,248,.12);
+      color:var(--accent);
+      font-size:.75rem;
+      font-weight:500;
+      line-height:1.2;
+      padding:.4rem .6rem;
+      border-radius:999px;
+      border:1px solid rgba(56,189,248,.4);
+      margin-bottom:1rem;
+    }
+
+    h1 {
+      font-size:clamp(1.9rem,2.2vw,2.4rem);
+      font-weight:600;
+      line-height:1.2;
+      color:var(--text-main);
+      margin:0 0 1rem;
+      max-width:800px;
+    }
+
+    .subhead {
+      font-size:1rem;
+      color:var(--text-dim);
+      max-width:750px;
+      margin-bottom:1.5rem;
+    }
+
+    .offerline {
+      background-color:rgba(255,255,255,.05);
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      padding:1rem 1.25rem;
+      max-width:750px;
+      font-size:1rem;
+      font-weight:500;
+      color:var(--text-main);
+      line-height:1.4;
+      margin-bottom:2rem;
+    }
+
+    .cta-btn {
+      display:inline-block;
+      background-color:var(--accent);
+      color:#000;
+      font-weight:600;
+      font-size:1rem;
+      line-height:1.2;
+      padding:.9rem 1.2rem;
+      border-radius:var(--radius);
+      border:none;
+    }
+    .cta-btn:hover,
+    .cta-btn:focus {
+      filter:brightness(1.05);
+      text-decoration:none;
+    }
+
+    .cta-hint {
+      font-size:.8rem;
+      color:var(--text-dim);
+      margin-top:.75rem;
+    }
+
+    main section {
+      padding:var(--section-pad) 1.5rem;
+      border-bottom:1px solid var(--border);
+      background-color:var(--bg-dark);
+    }
+
+    main section h2 {
+      font-size:1.25rem;
+      font-weight:600;
+      color:var(--text-main);
+      margin:0 0 1rem;
+      line-height:1.3;
+    }
+
+    .grid {
+      display:grid;
+      grid-template-columns:1fr;
+      gap:1rem;
+    }
+
+    @media(min-width:700px){
+      .grid-2 { grid-template-columns:1fr 1fr; }
+    }
+    @media(min-width:900px){
+      .grid-3 { grid-template-columns:1fr 1fr 1fr; }
+    }
+
+    .card {
+      background-color:var(--bg-card);
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      padding:var(--card-pad);
+    }
+
+    .card h3 {
+      margin:0 0 .5rem;
+      color:var(--text-main);
+      font-size:1rem;
+      font-weight:600;
+      line-height:1.3;
+    }
+
+    .card p {
+      margin:0;
+      color:var(--text-dim);
+      font-size:.9rem;
+      line-height:1.4;
+    }
+
+    .emphasis-line {
+      margin-top:1.5rem;
+      color:var(--text-main);
+      font-size:.9rem;
+      font-weight:500;
+      line-height:1.4;
+    }
+
+    .muted-line {
+      margin-top:.5rem;
+      color:var(--text-dim);
+      font-size:.8rem;
+      line-height:1.4;
+    }
+
+    .checklist-card ul {
+      margin:0;
+      padding-left:1rem;
+      color:var(--text-dim);
+      font-size:.9rem;
+      line-height:1.4;
+    }
+    .checklist-card li {
+      margin-bottom:.6rem;
+    }
+
+    footer {
+      background-color:var(--bg-dark);
+      padding:3rem 1.5rem 4rem;
+      color:var(--text-dim);
+      font-size:.8rem;
+    }
+
+    .foot-grid {
+      max-width:var(--maxw);
+      margin:0 auto;
+      display:grid;
+      gap:1.5rem;
+    }
+    @media(min-width:600px){
+      .foot-grid {
+        grid-template-columns:1fr 1fr;
+      }
+    }
+
+    .bio-block {
+      font-size:.9rem;
+      line-height:1.5;
+    }
+    .bio-block strong {
+      color:var(--text-main);
+      font-weight:600;
+    }
+
+    .bio-desc {
+      margin-top:1rem;
+      font-size:.8rem;
+      line-height:1.5;
+      color:var(--text-dim);
+    }
+
+    .contact-box {
+      background-color:var(--bg-card);
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      padding:1rem 1.25rem;
+      font-size:.9rem;
+      line-height:1.5;
+      color:var(--text-dim);
+      max-width:400px;
+    }
+    .contact-box-title {
+      color:var(--text-main);
+      font-weight:600;
+      font-size:.9rem;
+    }
+    .contact-email {
+      margin-top:.4rem;
+      color:var(--text-main);
+      font-weight:500;
+      font-size:.9rem;
+      word-break:break-word;
+    }
+    .contact-note {
+      margin-top:.8rem;
+      font-size:.8rem;
+      line-height:1.4;
+      color:var(--text-dim);
+    }
+
+    .visually-hidden {
+      position:absolute!important;
+      height:1px;width:1px;
+      overflow:hidden;
+      clip:rect(1px,1px,1px,1px);
+      white-space:nowrap;
+    }
+  </style>
+</head>
+<body>
+
+<header role="banner">
+  <div class="wrap">
+    <div class="badge" aria-label="Role">Stability Engineer</div>
+
+    <h1>Your AI is unstable. I stabilize it before it becomes a disclosure event.</h1>
+
+    <p class="subhead">
+      Runaway latency spikes, safety filter collapse, autoscaling thrash — that’s not “a bug,” that’s an unstable control loop. I find it, show you exactly why it’s happening, and tell you how to kill it.
+    </p>
+
+    <div class="offerline">
+      <strong>
+        If I can’t show you 3 shippable fixes in 90 minutes, you don’t pay.
+      </strong>
+    </div>
+
+    <a class="cta-btn" href="#start" aria-label="Jump to how to start the audit">
+      Get the Stability Audit →
+    </a>
+
+    <div class="cta-hint">
+      High-priority stability audits for AI / infra / automation teams.
+    </div>
+  </div>
+</header>
+
+<main id="main-content">
+
+  <!-- SECTION: Instability pain -->
+  <section aria-labelledby="why-heading">
+    <div class="wrap">
+      <h2 id="why-heading">Instability is not abstract. It’s money, uptime, legal.</h2>
+
+      <div class="grid grid-2">
+        <div class="card">
+          <h3>Latency rings every day?</h3>
+          <p>
+            That’s feedback overshoot. That’s how you get paged at 03:00 and say
+            “we didn’t even deploy anything.”
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>Autoscaling keeps pulsing?</h3>
+          <p>
+            You’re burning runway with no real performance gain. Classic loop
+            thrash. Finance feels it first.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>Safety filter lags under jailbreak load?</h3>
+          <p>
+            That’s a stability breach. That’s compliance and PR exposure, not
+            “a glitch.”
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>Rollout 10% → 25% → emergency rollback?</h3>
+          <p>
+            You’re flying with no ramp governor. That’s reckless from a control
+            perspective, and leadership knows it.
+          </p>
+        </div>
+      </div>
+
+      <div class="emphasis-line">
+        If two of these sound familiar, you already have a Stability Breach.
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION: What you get -->
+  <section aria-labelledby="offer-heading">
+    <div class="wrap">
+      <h2 id="offer-heading">What you get in the 90-minute Stability Audit</h2>
+
+      <div class="grid grid-3">
+        <div class="card">
+          <h3>1. Loop map</h3>
+          <p>
+            I draw the real feedback loop that’s actually driving your spikes
+            (traffic → model → safety layer → autoscaler → cost burn → back
+            into traffic).
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>2. Patch pack (2–4 fixes)</h3>
+          <p>
+            Rate limits, dampers, rollout governor, anti-windup. Plain English +
+            exactly where in your stack it goes.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>3. “Don’t get sued” memo</h3>
+          <p>
+            A short note your VP Eng / Legal can show upstairs: what was
+            unstable, what control was added, and how you’re verifying.
+          </p>
+        </div>
+      </div>
+
+      <div class="emphasis-line">
+        Guarantee: If I can’t point at a breach and hand you fixes your own team can ship, you don’t pay.
+      </div>
+
+      <div class="muted-line">
+        Typical engagement: €7.5k fixed.
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION: How to start -->
+  <section id="start" aria-labelledby="start-heading">
+    <div class="wrap">
+      <h2 id="start-heading">How to start (no meeting needed)</h2>
+
+      <div class="card checklist-card">
+        <h3>Send me 3 screenshots:</h3>
+        <ul>
+          <li>p50 / p95 latency from the last 24h</li>
+          <li>Instance count vs queue length / request load</li>
+          <li>Safety layer block rate vs its own latency</li>
+        </ul>
+
+        <p style="margin-top:1rem;color:var(--text-main);font-size:.9rem;line-height:1.4;">
+          I’ll tell you if you’re in real trouble, and how fast it can blow up.
+        </p>
+
+        <a class="cta-btn"
+           href="mailto:capyhust@gmail.com?subject=Stability%20Audit%20Screenshots"
+           aria-label="Email screenshots to request a stability audit">
+          Submit screenshots →
+        </a>
+
+        <div class="muted-line" style="margin-top:1rem;">
+          I don’t touch prod. I diagnose. Your team implements.
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer role="contentinfo">
+  <div class="foot-grid">
+
+    <div class="bio-block">
+      <strong>Aleksandr Silantev</strong><br/>
+      Stability Engineer (control systems for AI + automation infra)
+
+      <div class="bio-desc">
+        I design governors and dampers so high-risk AI systems stop oscillating,
+        stop melting budget, and stop creating disclosure risk. I work fast,
+        I hand you fixes, and you keep full control of your code.
+      </div>
+    </div>
+
+    <div class="contact-box" aria-label="Contact information">
+      <div class="contact-box-title">Contact</div>
+      <div class="contact-email">capyhust@gmail.com</div>
+      <div class="contact-note">
+        EU-based · Remote · High-priority incidents only
+      </div>
+    </div>
+
+  </div>
+</footer>
+
+</body>
+</html>
