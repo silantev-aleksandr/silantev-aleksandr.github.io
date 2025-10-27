@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- META -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Field Notes for Operators — Containing AI Instability</title>
+  <meta name="theme-color" content="#0f1117" />
+  <meta name="description" content="This is for the person getting paged at 03:00. How I help you kill the runaway loop and get air cover upstairs, without making you look bad." />
+  <meta name="robots" content="noindex,nofollow" />
+
+  <!-- Open Graph (kept boring / not salesy) -->
+  <meta property="og:title" content="Field Notes for Operators" />
+  <meta property="og:description" content="If your autoscaler is pulsing and Legal is twitchy about safety lag, read this." />
+  <meta property="og:type" content="website" />
+
+  <style>
+    :root {
+      --bg-dark:#0f1117;
+      --bg-card:#1a1d29;
+      --text-main:#f9fafb;
+      --text-dim:#9ca3af;
+      --accent:#38bdf8;
+      --border:#2a2f3f;
+      --radius:12px;
+      --maxw:1100px;
+      --card-pad:1.5rem;
+      --section-pad:4rem;
+      --font:-apple-system,BlinkMacSystemFont,"Inter","Roboto","Segoe UI",system-ui,sans-serif;
+    }
+
+    * {
+      box-sizing:border-box;
+    }
+
+    body {
+      margin:0;
+      background-color:var(--bg-dark);
+      color:var(--text-main);
+      font-family:var(--font);
+      line-height:1.5;
+      -webkit-font-smoothing:antialiased;
+      text-rendering:optimizeLegibility;
+    }
+
+    a {
+      color:var(--accent);
+      text-decoration:none;
+      font-weight:500;
+    }
+    a:hover,
+    a:focus {
+      text-decoration:underline;
+    }
+
+    .wrap {
+      max-width:var(--maxw);
+      margin:0 auto;
+    }
+
+    header {
+      padding:2rem 1.5rem 3rem;
+      border-bottom:1px solid var(--border);
+      background:
+        radial-gradient(circle at 20% 20%,rgba(56,189,248,.18) 0%,rgba(15,17,23,0) 70%);
+    }
+
+    .header-grid {
+      display:grid;
+      grid-template-columns:1fr;
+      gap:2rem;
+      align-items:start;
+    }
+
+    @media(min-width:720px){
+      .header-grid {
+        grid-template-columns:1fr auto;
+      }
+    }
+
+    .badge {
+      display:inline-block;
+      background-color:rgba(56,189,248,.12);
+      color:var(--accent);
+      font-size:.75rem;
+      font-weight:500;
+      line-height:1.2;
+      padding:.4rem .6rem;
+      border-radius:999px;
+      border:1px solid rgba(56,189,248,.4);
+      margin-bottom:1rem;
+    }
+
+    h1 {
+      font-size:clamp(1.6rem,2vw,2rem);
+      font-weight:600;
+      line-height:1.2;
+      color:var(--text-main);
+      margin:0 0 1rem;
+      max-width:800px;
+    }
+
+    .subhead {
+      font-size:1rem;
+      color:var(--text-dim);
+      max-width:750px;
+      margin:0 0 1rem;
+      line-height:1.4;
+    }
+
+    .soft-note {
+      font-size:.8rem;
+      color:var(--text-dim);
+      max-width:750px;
+      line-height:1.4;
+    }
+
+    .photo-frame {
+      width:180px;
+      max-width:200px;
+      aspect-ratio:9/16;
+      background-color:var(--bg-card);
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      overflow:hidden;
+      box-shadow:0 20px 40px rgba(0,0,0,.6);
+    }
+
+    .photo-frame img {
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+    }
+
+    main section {
+      padding:var(--section-pad) 1.5rem;
+      border-bottom:1px solid var(--border);
+      background-color:var(--bg-dark);
+    }
+
+    main section h2 {
+      font-size:1.1rem;
+      font-weight:600;
+      color:var(--text-main);
+      margin:0 0 1rem;
+      line-height:1.3;
+    }
+
+    .callout {
+      background-color:var(--bg-card);
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      padding:var(--card-pad);
+      font-size:.9rem;
+      line-height:1.4;
+      color:var(--text-main);
+      max-width:900px;
+    }
+
+    .callout p {
+      margin:0 0 .75rem;
+      color:var(--text-main);
+      font-size:.9rem;
+      line-height:1.4;
+    }
+
+    .callout p:last-child {
+      margin-bottom:0;
+    }
+
+    .grid {
+      display:grid;
+      grid-template-columns:1fr;
+      gap:1rem;
+      max-width:900px;
+    }
+
+    @media(min-width:700px){
+      .grid-2 { grid-template-columns:1fr 1fr; }
+    }
+
+    .card {
+      background-color:var(--bg-card);
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      padding:var(--card-pad);
+    }
+
+    .card h3 {
+      margin:0 0 .5rem;
+      color:var(--text-main);
+      font-size:.9rem;
+      font-weight:600;
+      line-height:1.3;
+    }
+
+    .card p {
+      margin:0;
+      color:var(--text-dim);
+      font-size:.85rem;
+      line-height:1.4;
+    }
+
+    .bulletlist {
+      margin:0;
+      padding-left:1rem;
+      font-size:.9rem;
+      line-height:1.4;
+      color:var(--text-main);
+      max-width:900px;
+    }
+    .bulletlist li {
+      margin-bottom:.6rem;
+      color:var(--text-dim);
+      font-size:.9rem;
+      line-height:1.4;
+    }
+
+    .quote-card {
+      background-color:var(--bg-card);
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      padding:1rem 1.25rem;
+      color:var(--text-main);
+      font-size:.8rem;
+      line-height:1.5;
+      max-width:900px;
+      font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      white-space:pre-line;
+    }
+
+    .email-box {
+      background-color:rgba(56,189,248,.07);
+      border:1px solid rgba(56,189,248,.4);
+      border-radius:var(--radius);
+      padding:1rem 1.25rem;
+      font-size:.85rem;
+      line-height:1.4;
+      color:var(--text-main);
+      max-width:900px;
+      margin-top:1.5rem;
+    }
+    .email-box strong {
+      color:var(--accent);
+      font-weight:600;
+    }
+
+    footer {
+      background-color:var(--bg-dark);
+      padding:3rem 1.5rem 4rem;
+      color:var(--text-dim);
+      font-size:.8rem;
+    }
+
+    .foot-grid {
+      max-width:var(--maxw);
+      margin:0 auto;
+      display:grid;
+      gap:1.5rem;
+    }
+    @media(min-width:600px){
+      .foot-grid {
+        grid-template-columns:1fr 1fr;
+      }
+    }
+
+    .bio-block {
+      font-size:.9rem;
+      line-height:1.5;
+    }
+    .bio-block strong {
+      color:var(--text-main);
+      font-weight:600;
+    }
+
+    .bio-desc {
+      margin-top:1rem;
+      font-size:.8rem;
+      line-height:1.5;
+      color:var(--text-dim);
+    }
+
+    .contact-box {
+      background-color:var(--bg-card);
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      padding:1rem 1.25rem;
+      font-size:.9rem;
+      line-height:1.5;
+      color:var(--text-dim);
+      max-width:400px;
+    }
+    .contact-box-title {
+      color:var(--text-main);
+      font-weight:600;
+      font-size:.9rem;
+    }
+    .contact-email {
+      margin-top:.4rem;
+      color:var(--text-main);
+      font-weight:500;
+      font-size:.9rem;
+      word-break:break-word;
+    }
+    .contact-note {
+      margin-top:.8rem;
+      font-size:.8rem;
+      line-height:1.4;
+      color:var(--text-dim);
+    }
+
+    .copyright {
+      max-width:var(--maxw);
+      margin:2rem auto 0;
+      color:var(--text-dim);
+      opacity:.9;
+    }
+
+    .visually-hidden {
+      position:absolute!important;
+      height:1px;width:1px;
+      overflow:hidden;
+      clip:rect(1px,1px,1px,1px);
+      white-space:nowrap;
+    }
+  </style>
+</head>
+<body>
+
+<header role="banner">
+  <div class="wrap header-grid">
+
+    <div>
+      <div class="badge" aria-label="Audience">Field notes for operators</div>
+
+      <h1>
+        If you’re getting paged for runaway latency or pulsing autoscaler,
+        this page is for you.  
+        This is not you failing.
+      </h1>
+
+      <p class="subhead">
+        I’m Aleksandr. I stabilize ugly control loops around LLM infra,
+        safety gating, rollout governors, and autoscaling. I’m here so you
+        stop getting blamed for a systems-level loop that Finance / Legal
+        turned into politics at 03:00.
+      </p>
+
+      <p class="soft-note">
+        You can forward this page internally.  
+        There’s no pricing here, no “book a call,” nothing for Procurement.  
+        I’m not here to replace you. I’m here to get you air cover.
+      </p>
+
+      <p class="soft-note" style="margin-top:1rem;">
+        Contact: <a href="mailto:capyhust@gmail.com?subject=Screenshots">capyhust@gmail.com</a>  
+        EU-based · Remote · High-priority incidents only
+      </p>
+    </div>
+
+    <div class="photo-frame" aria-hidden="true">
+      <!-- Replace image.jpeg with your actual 9:16 portrait (image.png etc.) -->
+      <img src="image.jpeg" alt="Aleksandr Silantev portrait" />
+    </div>
+
+  </div>
+</header>
+
+<main id="main-content">
+
+  <!-- 1. This is not you -->
+  <section aria-labelledby="not-you-heading">
+    <div class="wrap">
+      <h2 id="not-you-heading">1. First: this is not you messing up.</h2>
+
+      <div class="callout">
+        <p>
+          Every serious AI infra team eventually hits the same pattern:
+          latency spikes → autoscaler slams capacity → cost goes vertical →
+          safety / moderation starts lagging → Legal freaks out → rollout
+          throttles to 0% → leadership demands “who did this?”.
+        </p>
+        <p>
+          That is not “bad oncall.” That is an <strong>underdamped feedback
+          loop</strong> between traffic, model latency, safety, and
+          autoscaling. It’s a control problem.
+        </p>
+        <p>
+          Once Finance and Legal are in the room, you’re no longer fighting
+          tech — you’re being dragged into a liability narrative. That’s the
+          part I take off you.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. What I hand you -->
+  <section aria-labelledby="deliverables-heading">
+    <div class="wrap">
+      <h2 id="deliverables-heading">2. What I actually hand you</h2>
+
+      <div class="grid grid-2">
+        <div class="card">
+          <h3>Loop map</h3>
+          <p>
+            I draw the real feedback loop that’s driving the spike pattern.
+            Traffic → model → safety layer → autoscaler → cost burn →
+            back into traffic. You can show this upstream and say
+            “this is the actual root cause.”
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>Stabilizer patch pack</h3>
+          <p>
+            2–4 fixes: ramp limits, dampers, rollout governor / anti-windup,
+            rollback trigger logic. Plain English + where it lives in your
+            stack. Your team ships it, not me.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>Containment memo for leadership</h3>
+          <p>
+            A short paragraph your VP Eng / Legal / Finance can forward
+            upstairs: what was unstable, what guardrail got added, and how
+            you’re verifying. This closes the “are we exposed?” panic so
+            they get off your throat.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>Your political air cover</h3>
+          <p>
+            I make sure the write-up says “we had an underdamped loop and
+            we’re adding governors,” not “infra shipped bad code.”
+            You look like the adult who contained it.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. What I don't do -->
+  <section aria-labelledby="dont-heading">
+    <div class="wrap">
+      <h2 id="dont-heading">3. What I <em>don’t</em> do (on purpose)</h2>
+
+      <ul class="bulletlist">
+        <li>I don’t ask for prod access.</li>
+        <li>I don’t ask for source code.</li>
+        <li>I don’t camp inside your org or try to “take over infra.”</li>
+        <li>I don’t tell leadership “the oncall screwed up.” Ever.</li>
+        <li>I don’t hand you 40 pages of theory. I hand you “ship <em>this</em> governor here.”</li>
+      </ul>
+
+      <div class="soft-note" style="max-width:900px;margin-top:1rem;">
+        My job is to contain the loop and make Legal/Finance calm down.
+        Your job is still running the system. I’m not trying to steal that.
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. Is this real instability or just traffic? -->
+  <section aria-labelledby="diagnose-heading">
+    <div class="wrap">
+      <h2 id="diagnose-heading">4. Do you actually have an unstable loop?</h2>
+
+      <ul class="bulletlist">
+        <li>Your p95 latency doesn’t just climb — it <strong>waves in a rhythm</strong> (like every ~5–10 minutes).</li>
+        <li>The autoscaler is pulsing capacity up/down in sync with that wave, and Finance is already grumpy.</li>
+        <li>Safety / moderation latency lags exactly during that wave and Compliance starts pinging you.</li>
+        <li>You had to yank rollout from 25% back to 0% in one day because “legal risk.”</li>
+      </ul>
+
+      <div class="soft-note" style="max-width:900px;margin-top:1rem;">
+        If you’re seeing that pattern: that’s not “we’re busy,” that’s a classic runaway loop.
+        That’s where I’m useful.
+      </div>
+
+      <div class="soft-note" style="max-width:900px;margin-top:.75rem;">
+        If you’re just linearly saturating (more traffic → more latency, no oscillation), you might be fine
+        and you don’t need me.
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. What I need from you -->
+  <section aria-labelledby="screenshots-heading">
+    <div class="wrap">
+      <h2 id="screenshots-heading">5. What to send me so I can classify it</h2>
+
+      <div class="callout">
+        <p>3 screenshots from the last 24h:</p>
+        <p>• p50 / p95 latency over time<br/>
+           • Instance count vs queue length / request load<br/>
+           • Safety / moderation block rate vs its own latency</p>
+
+        <p>
+          Email them to <strong>capyhust@gmail.com</strong> (subject “screenshots” is enough).
+        </p>
+
+        <p>
+          I’ll tell you which bucket you’re in:
+          <br/>– “You’re just getting hammered, it’s resource pressure — you can handle this in-house.”
+          <br/>– or “You’re in an unstable loop, Legal will escalate this, here’s how we contain it.”
+        </p>
+
+        <p style="color:var(--text-dim);font-size:.8rem;line-height:1.4;">
+          If it’s just load, I’ll literally say “you’re fine” and disappear.
+          I’m not trying to wedge myself into your team.
+        </p>
+      </div>
+
+      <div class="email-box">
+        <strong>capyhust@gmail.com</strong><br/>
+        No NDA needed for screenshots. I don’t touch prod. You keep full control of fixes.
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. The memo you forward upstairs -->
+  <section aria-labelledby="memo-heading">
+    <div class="wrap">
+      <h2 id="memo-heading">6. The paragraph you forward upstairs</h2>
+
+      <div class="quote-card">
+We identified an underdamped scaling loop that was creating
+recurring latency oscillation (~7 min period) and synchronized
+capacity pulsing. During these pulses, moderation latency spiked,
+which Legal flagged as potential exposure.
+
+We’re inserting a rollout governor, anti-windup, and damping on
+autoscale response, plus a rollback trigger tied to residuals.
+This contains the breach, caps spend bleed, and restores stable
+moderation latency. We’re tracking residual error instead of raw
+throughput to verify it’s holding.
+      </div>
+
+      <div class="soft-note" style="max-width:900px;margin-top:1rem;">
+        That paragraph is what calms VP Eng / Finance / Legal.
+        You look like the person who contained the blast radius, not “the cause.”
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer role="contentinfo">
+  <div class="foot-grid">
+
+    <div class="bio-block">
+      <strong>Aleksandr Silantev</strong><br/>
+      Stability Engineer (control systems for AI + automation infra)
+
+      <div class="bio-desc">
+        I design governors and dampers so high-risk AI systems stop
+        oscillating, stop melting budget, and stop turning into PR /
+        compliance incidents. I hand you fixes and language you can
+        send upstairs so you stop getting blamed.
+      </div>
+    </div>
+
+    <div class="contact-box" aria-label="Contact information">
+      <div class="contact-box-title">Contact</div>
+      <div class="contact-email">capyhust@gmail.com</div>
+      <div class="contact-note">
+        EU-based · Remote · High-priority incidents only
+      </div>
+    </div>
+
+  </div>
+</footer>
+
+<div class="copyright wrap">© 2025 Aleksandr Silantev — All rights reserved.</div>
+
+</body>
+</html>
