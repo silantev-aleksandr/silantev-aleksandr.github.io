@@ -151,6 +151,26 @@
 
     .kpi{ font-weight:700; color:#fff; }
 
+    /* Proof module */
+    .proof-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:1rem;}
+    .proof-right{grid-column:span 4;background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:1rem;}
+    .proof-left{grid-column:span 8;}
+    @media (max-width:900px){.proof-left,.proof-right{grid-column:span 12;}}
+
+    .stat{background:#0c131b;border:1px solid var(--line);border-radius:12px;padding:.9rem}
+    .stat .label{color:var(--muted);font-size:.92rem;margin-bottom:.25rem}
+    .stat .num{font-weight:800;font-size:1.65rem;color:#fff}
+    .stat .note{color:var(--muted);font-size:.85rem;margin-top:.35rem}
+
+    .shot{position:relative;background:#0c131b;border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden}
+    .shot-head{display:flex;gap:.4rem;align-items:center;height:34px;padding:0 .75rem;border-bottom:1px solid var(--line);background:#0f1821}
+    .shot-dot{width:10px;height:10px;border-radius:999px;background:#ef4444}
+    .shot-dot:nth-child(2){background:#f59e0b}
+    .shot-dot:nth-child(3){background:#10b981}
+    .shot-cap{position:absolute;right:.75rem;top:.35rem;font-size:.8rem;color:var(--muted)}
+    .shot svg{display:block;width:100%;height:300px}
+    .shot-watermark{position:absolute;inset:auto 0 8px 0;text-align:center;color:rgba(255,255,255,.45);font-size:.8rem}
+
     .timeline{ display:grid; grid-template-columns: repeat(12, 1fr); gap: 1rem; }
     .timeline .tcard{ grid-column: span 4; background: var(--panel); border:1px solid var(--line); border-radius: var(--radius); padding: 1rem; }
     @media (max-width: 900px){ .timeline .tcard{ grid-column: span 12; } }
@@ -307,6 +327,67 @@
         <a class="btn btn-primary" href="#start" aria-label="Start enrollment">Start enrollment →</a>
       </div>
     </section>
+
+    <!-- PROOF SECTION (anonymized case study) -->
+    <section class="wrap section" id="proof">
+      <div class="anchor"><a class="hash" href="#proof" aria-label="Link to section">#</a><h2>Sample results (anonymized)</h2></div>
+      <p class="muted">Representative 4-week pilot from a mid-market EU fintech (~25 eng). Metrics shown are production p95/p99 and incident rate; company identity and exact scales redacted.</p>
+
+      <div class="proof-grid" role="group" aria-label="Anonymized case study">
+        <!-- Left: faux dashboard screenshot -->
+        <div class="proof-left">
+          <figure class="shot" role="img" aria-label="Anonymized p99 latency trending down over the pilot period with reduced variance">
+            <div class="shot-head" aria-hidden="true">
+              <span class="shot-dot"></span><span class="shot-dot"></span><span class="shot-dot"></span>
+              <span class="shot-cap">Grafana • p99 latency (ms) — prod</span>
+            </div>
+            <svg viewBox="0 0 720 300" aria-hidden="true">
+              <!-- grid -->
+              <g stroke="rgba(255,255,255,.08)" stroke-width="1">
+                <line x1="0" y1="260" x2="720" y2="260"/><line x1="0" y1="220" x2="720" y2="220"/>
+                <line x1="0" y1="180" x2="720" y2="180"/><line x1="0" y1="140" x2="720" y2="140"/>
+                <line x1="0" y1="100" x2="720" y2="100"/><line x1="0" y1="60" x2="720" y2="60"/>
+              </g>
+              <!-- pre-pilot volatility (red) -->
+              <path d="M0,210 C40,120 80,250 120,170 S200,120 240,230 S320,270 360,150 S400,90 440,240" fill="none" stroke="var(--danger)" stroke-width="3" opacity=".85"/>
+              <!-- pilot starts marker -->
+              <line x1="460" y1="40" x2="460" y2="270" stroke="rgba(34,211,238,.55)" stroke-dasharray="5 6" />
+              <!-- pilot period (green) -->
+              <path d="M460,190 C500,180 540,170 580,165 S660,158 720,156" fill="none" stroke="var(--success)" stroke-width="3"/>
+              <!-- variance band (green, faint) -->
+              <path d="M460,205 C500,195 540,185 580,180 S660,173 720,171" fill="none" stroke="rgba(34,197,94,.35)" stroke-width="2"/>
+              <path d="M460,176 C500,168 540,160 580,156 S660,150 720,148" fill="none" stroke="rgba(34,197,94,.35)" stroke-width="2"/>
+            </svg>
+            <figcaption class="shot-watermark">data anonymized • scales redacted • indicative trend only</figcaption>
+          </figure>
+        </div>
+
+        <!-- Right: KPI cards -->
+        <aside class="proof-right">
+          <div class="stat">
+            <div class="label">p99 tail</div>
+            <div class="num">−42%</div>
+            <div class="note">Week-over-week improvement by end of pilot</div>
+          </div>
+          <div class="stat" style="margin-top:.75rem">
+            <div class="label">Incident rate</div>
+            <div class="num">−28%</div>
+            <div class="note">Sev-3/4 prod incidents (rolling 30 days)</div>
+          </div>
+          <div class="stat" style="margin-top:.75rem">
+            <div class="label">Peak spend variance</div>
+            <div class="num">−35%</div>
+            <div class="note">95th pct hourly infra cost during traffic spikes</div>
+          </div>
+          <p class="muted" style="margin:.9rem 0 0">Receipts available under NDA: rollout diffs, guardrail configs, and controller settings.</p>
+        </aside>
+      </div>
+
+      <div class="cta-row" style="margin-top:1.25rem">
+        <a class="btn btn-primary" href="#start" aria-label="Start enrollment">Start enrollment →</a>
+      </div>
+    </section>
+    <!-- /PROOF SECTION -->
 
     <section class="wrap section" id="method">
       <div class="anchor"><a class="hash" href="#method" aria-label="Link to section">#</a><h2>Method &amp; rigor</h2></div>
