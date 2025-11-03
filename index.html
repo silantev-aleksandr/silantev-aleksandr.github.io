@@ -1,413 +1,513 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <!-- META -->
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Tail Stability Research Cohort — Boutique Enrollment</title>
-  <meta name="theme-color" content="#0f1117" />
-  <meta name="description" content="Independent control-theory research cohort on LLM tail stability and spend variance. Boutique enrollment for executives and engineering leaders." />
+  <!-- SEO basics -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tail Stability Research Cohort — Industry Enrollment</title>
+  <meta name="description" content="A boutique research cohort to stabilize tail latency, reduce spend variance, and harden control loops in production systems. Enrollment limited; vendor-neutral, privacy-first.">
+  <link rel="canonical" href="https://your-domain.example/index.html"><!-- ← update after publish -->
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
-  <!-- Open Graph (preview when you send link) -->
-  <meta property="og:title" content="Tail Stability Research Cohort — Boutique Enrollment" />
-  <meta property="og:description" content="Independent PI leading a limited, industry–research cohort on LLM p95/p99 stabilization. Enrollment: Oct 15–Dec 15, 2025." />
-  <meta property="og:type" content="website" />
-  <!-- Keep your existing preview image at repo root if configured -->
+  <!-- Open Graph & Twitter -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Tail Stability Research Cohort">
+  <meta property="og:title" content="Tail Stability Research Cohort — Industry Enrollment">
+  <meta property="og:description" content="Stabilize p95/p99 tails, cut variance, and ship predictable performance. 5–7 orgs; vendor-neutral; privacy-first.">
+  <meta property="og:url" content="https://your-domain.example/index.html">
+  <meta property="og:image" content="image.jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="1500">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Tail Stability Research Cohort — Industry Enrollment">
+  <meta name="twitter:description" content="Stabilize p95/p99 tails, cut variance, and ship predictable performance. 5–7 orgs; vendor-neutral; privacy-first.">
+  <meta name="twitter:image" content="image.jpeg">
+
+  <!-- Structured Data (Person + WebSite + small FAQ) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "name": "Tail Stability Research Cohort",
+        "url": "https://your-domain.example/index.html",
+        "description": "A boutique research cohort to stabilize tail latency and spend variance in production systems."
+      },
+      {
+        "@type": "Person",
+        "name": "Aleksandr Silantev",
+        "jobTitle": "Independent PI — Control Theory",
+        "url": "https://your-domain.example/index.html"
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What is the commitment?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Initial deep-dive of production signals, canary guardrails, then iterative controller tuning with weekly check-ins."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Do you require code changes?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No fundamental rewrites. We integrate with your telemetry and deployment lanes to add closed-loop control."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
 
   <style>
     :root{
-      --bg-dark:#0f1117;
-      --bg-card:#1a1d29;
-      --text-main:#f9fafb;
-      --text-dim:#9ca3af;
-      --accent:#38bdf8;
-      --border:#2a2f3f;
-      --radius:12px;
-      --maxw:1100px;
-      --card-pad:1.5rem;
-      --section-pad:4rem;
-      --font:-apple-system,BlinkMacSystemFont,"Inter","Roboto","Segoe UI",system-ui,sans-serif;
-    }
-    *{box-sizing:border-box}
-    body{
-      margin:0;background:var(--bg-dark);color:var(--text-main);
-      font-family:var(--font);line-height:1.5;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
-    }
-    a{color:var(--accent);text-decoration:none}
-    a:hover,a:focus{text-decoration:underline}
+      --bg: #0b1219;
+      --panel: #0f1821;
+      --muted: #9ca3af;
+      --text: #f5f7fa;
+      --text-dim: #d1d5db;
+      --line: #1f2a37;
+      --brand: #22d3ee;           /* cyan */
+      --danger: #ef4444;          /* red for 'before' */
+      --success: #22c55e;         /* green for 'after' */
+      --radius: 16px;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --maxw: 1100px;
 
-    .wrap{max-width:var(--maxw);margin:0 auto}
+      /* type scale */
+      --s-1: .85rem;
+      --s0: 1rem;
+      --s1: 1.125rem;
+      --s2: 1.35rem;
+      --s3: clamp(1.6rem, 1.2rem + 1.6vw, 2.2rem);
+      --s4: clamp(2.0rem, 1.6rem + 2.0vw, 2.8rem);
 
-    header{
-      padding:2rem 1.5rem 3rem;border-bottom:1px solid var(--border);
-      background:radial-gradient(circle at 20% 20%,rgba(56,189,248,.18) 0%,rgba(15,17,23,0) 70%);
-    }
-    .badge{
-      display:inline-block;background:rgba(56,189,248,.12);color:var(--accent);
-      font-size:.75rem;font-weight:500;line-height:1.2;padding:.5rem .9rem;border-radius:999px;
-      border:1px solid rgba(56,189,248,.4);margin-bottom:1rem
-    }
-    h1{
-      font-size:clamp(1.9rem,2.2vw,2.4rem);font-weight:600;line-height:1.2;color:var(--text-main);
-      margin:0 0 1rem;max-width:800px
-    }
-    .subhead{font-size:1rem;color:var(--text-dim);max-width:800px;margin-bottom:1.5rem}
-    .socialproof{font-size:.9rem;color:#c9d1d9;margin:.1rem 0 1.25rem;opacity:.9}
+      /* consistent vertical rhythm */
+      --section-pb: clamp(2.0rem, 4vw, 3.5rem);
+      --section-pt: clamp(2.25rem, 4.5vw, 4rem);
 
-    .offerline{
-      background:rgba(255,255,255,.05);border:1px solid var(--border);border-radius:var(--radius);
-      padding:1.1rem 1.35rem;max-width:800px;font-size:1rem;font-weight:500;color:var(--text-main);
-      line-height:1.4;margin-bottom:1.25rem
+      /* bigger buttons per your request */
+      --btn-pad-y: .95rem;
+      --btn-pad-x: 1.25rem;
     }
 
-    /* CTA styling — larger padding and spacing */
-    .cta-row{display:flex;flex-wrap:wrap;gap:1.1rem;margin:1.4rem 0 0}
-    .cta-btn{
-      display:inline-block;background:var(--accent);color:#000;font-weight:700;font-size:1.05rem;line-height:1.2;
-      padding:1.1rem 1.55rem;border-radius:16px;border:none;box-shadow:0 0 0 1px rgba(0,0,0,.0)
+    html,body{
+      background: var(--bg);
+      color: var(--text);
+      font: 400 16px/1.6 ui-sans-serif, -apple-system, system-ui, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Apple Color Emoji","Segoe UI Emoji";
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      margin:0;
     }
-    .cta-btn:hover,.cta-btn:focus{filter:brightness(1.05);text-decoration:none}
-    .cta-hint{font-size:.9rem;color:var(--text-dim);margin-top:1rem}
 
-    main section{padding:var(--section-pad) 1.5rem;border-bottom:1px solid var(--border);background:var(--bg-dark)}
-    main section h2{font-size:1.25rem;font-weight:600;color:var(--text-main);margin:0 0 1rem;line-height:1.3}
-
-    .grid{display:grid;grid-template-columns:1fr;gap:1rem}
-    @media(min-width:700px){.grid-2{grid-template-columns:1fr 1fr}}
-    @media(min-width:900px){.grid-3{grid-template-columns:1fr 1fr 1fr}}
-
-    .card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:var(--card-pad)}
-    .card h3{margin:0 0 .6rem;color:var(--text-main);font-size:1rem;font-weight:600;line-height:1.3}
-    .card p{margin:0;color:var(--text-dim);font-size:.92rem;line-height:1.45}
-
-    .emphasis-line{margin-top:1.5rem;color:var(--text-main);font-size:.95rem;font-weight:600}
-    .muted-line{margin-top:.6rem;color:var(--text-dim);font-size:.85rem}
-
-    .checklist-card ul{margin:0;padding-left:1rem;color:var(--text-dim);font-size:.92rem;line-height:1.5}
-    .checklist-card li{margin-bottom:.6rem}
-
-    .timeline{display:grid;gap:1rem;grid-template-columns:1fr}
-    @media(min-width:700px){.timeline{grid-template-columns:1fr 1fr 1fr}}
-
-    footer{background:var(--bg-dark);padding:3rem 1.5rem 4rem;color:var(--text-dim);font-size:.8rem}
-    .foot-grid{max-width:var(--maxw);margin:0 auto;display:grid;gap:1.5rem}
-    @media(min-width:600px){.foot-grid{grid-template-columns:1fr 1fr}}
-
-    .bio-block{font-size:.92rem;line-height:1.5}
-    .bio-block strong{color:var(--text-main);font-weight:600}
-    .bio-desc{margin-top:1rem;font-size:.85rem;line-height:1.5;color:var(--text-dim)}
-    .contact-box{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);
-      padding:1.1rem 1.25rem;font-size:.9rem;line-height:1.5;color:var(--text-dim);max-width:420px}
-    .contact-box-title{color:var(--text-main);font-weight:600;font-size:.95rem}
-    .contact-email{margin-top:.5rem;color:var(--text-main);font-weight:600;font-size:.95rem;word-break:break-word}
-    .contact-note{margin-top:.8rem;font-size:.82rem;color:var(--text-dim)}
-
-    .hero-figure{margin-top:1.5rem;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
-    .hero-figure img{display:block;width:100%;height:auto}
-
-    /* Diagram container */
-    .viz{margin-top:1.25rem;border:1px dashed var(--border);border-radius:var(--radius);padding:1rem;background:rgba(255,255,255,.02)}
-
-    .copyright{max-width:var(--maxw);margin:2.25rem auto 0;color:var(--text-dim);opacity:.9}
-
-    .visually-hidden{
-      position:absolute!important;height:1px;width:1px;overflow:hidden;clip:rect(1px,1px,1px,1px);white-space:nowrap;
+    .skip-link{
+      position:absolute; left:-9999px; top:auto; width:1px; height:1px; overflow:hidden;
     }
+    .skip-link:focus{
+      position: fixed; left: 12px; top: 12px; width:auto; height:auto; padding:.5rem .75rem; background:#fff; color:#000; border-radius:8px; z-index:9999;
+    }
+
+    header{ padding: 1rem 1rem 0; }
+    .wrap{ max-width: var(--maxw); margin: 0 auto; padding: 0 1rem; }
+    .section{ padding: var(--section-pt) 0 var(--section-pb); border-top: 1px solid var(--line); }
+
+    h1{ font-size: var(--s4); line-height: 1.15; margin:.25rem 0 1rem; }
+    h2{ font-size: var(--s3); margin:0 0 1rem; }
+    h3{ font-size: var(--s2); margin:0 0 .35rem; }
+    p{ color: var(--text-dim); margin: .35rem 0 1rem; }
+
+    .lead{ font-size: var(--s1); color: var(--text-dim); max-width: 70ch; }
+    .badge{ display:inline-flex; gap:.5rem; align-items:center; padding:.35rem .6rem; border:1px solid var(--line); border-radius:999px; color:var(--text-dim); font-size:.92rem; }
+    .muted{ color: var(--muted); }
+
+    .cta-row{ display:flex; gap: .75rem; flex-wrap: wrap; margin: 1.25rem 0 0; }
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center; gap:.5rem;
+      padding: var(--btn-pad-y) var(--btn-pad-x);
+      border-radius: 999px;
+      text-decoration:none; font-weight:600; letter-spacing:.2px;
+      transition: transform .06s ease, box-shadow .2s ease, background .2s ease, color .2s ease, filter .2s ease;
+      border: 1px solid transparent;
+    }
+    .btn:focus-visible{ outline: 3px solid currentColor; outline-offset: 2px; }
+    .btn-primary{
+      background: var(--brand); color:#041018; border-color: transparent;
+      box-shadow: 0 8px 24px rgba(34,211,238,.25);
+    }
+    .btn-primary:hover{ transform: translateY(-1px); }
+    .btn-ghost{
+      background: transparent; color: var(--text); border-color: var(--line);
+    }
+    .btn-ghost:hover{ background: rgba(255,255,255,.03); transform: translateY(-1px); }
+
+    .hero{
+      display:grid; grid-template-columns: 1.15fr .85fr; gap: clamp(1rem, 4vw, 2rem);
+      align-items: start;
+    }
+    @media (max-width: 980px){
+      .hero{ grid-template-columns: 1fr; }
+    }
+    figure.hero-figure{
+      margin:0; background: #0c131b; border:1px solid var(--line); border-radius: var(--radius); overflow:hidden; box-shadow: var(--shadow);
+      max-height: 560px;
+    }
+    figure.hero-figure img{
+      display:block; width:100%; height:100%; object-fit: cover; object-position: center 20%;
+    }
+
+    .cards{ display:grid; grid-template-columns: repeat(12, 1fr); gap: 1rem; }
+    .card{
+      grid-column: span 4; background: var(--panel); border:1px solid var(--line); border-radius: var(--radius); padding:1rem 1rem;
+    }
+    @media (max-width: 900px){ .card{ grid-column: span 12; } }
+
+    .diagram{
+      display:grid; grid-template-columns: repeat(2,1fr); gap: 1rem;
+      background: linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.00));
+      border:1px solid var(--line); border-radius: var(--radius); padding: 1rem;
+    }
+    .diagram-panel{
+      background: #0b141c; border:1px solid var(--line); border-radius: 12px; padding: .75rem;
+    }
+    .diagram-title{ display:flex; justify-content:space-between; align-items:center; font-size:.95rem; color: var(--muted); margin-bottom:.25rem; }
+    .diagram svg{ width:100%; height:220px; display:block; }
+
+    .kpi{ font-weight:700; color:#fff; }
+
+    .timeline{ display:grid; grid-template-columns: repeat(12, 1fr); gap: 1rem; }
+    .timeline .tcard{ grid-column: span 4; background: var(--panel); border:1px solid var(--line); border-radius: var(--radius); padding: 1rem; }
+    @media (max-width: 900px){ .timeline .tcard{ grid-column: span 12; } }
+    .timeline ul{ margin:.5rem 0 0; padding-left:1.1rem; }
+    .timeline li{ color: var(--text-dim); margin:.25rem 0; }
+
+    .form{
+      background: var(--panel); border:1px solid var(--line); border-radius: var(--radius);
+      padding: 1rem; box-shadow: var(--shadow);
+    }
+    .form label{ display:block; font-weight:600; margin:.5rem 0 .25rem; }
+    .form input, .form textarea{
+      width:100%; padding:.8rem .9rem; border-radius: 10px; background:#0c131b; color:#fff; border:1px solid var(--line);
+    }
+    .form small{ color: var(--muted); display:block; margin-top:.25rem; }
+
+    footer{ padding: 2rem 0 4rem; border-top: 1px solid var(--line); color: var(--muted); }
+    .footgrid{ display:grid; grid-template-columns: repeat(12,1fr); gap:1rem; }
+    .footcol{ grid-column: span 6; }
+    @media (max-width: 900px){ .footcol{ grid-column: span 12; } }
+
+    .anchor{
+      position: relative;
+    }
+    .anchor a.hash{
+      position:absolute; left:-1.2rem; opacity:0; text-decoration:none; color: var(--muted);
+    }
+    .anchor:hover a.hash{ opacity:1; }
   </style>
 </head>
 <body>
+  <a class="skip-link" href="#main">Skip to content</a>
 
-<header role="banner">
-  <div class="wrap">
-    <div class="badge" aria-label="Role">Independent PI · Control Theory</div>
-
-    <h1>Tail Stability Research Cohort — industry enrollment</h1>
-
-    <p class="subhead">
-      I lead a curated research program on stabilizing LLM <strong>tail latency</strong> (p95/p99)
-      and <strong>spend variance</strong> that emerge from control loops around your models.
-      The same picture, the same rigor: we study delay, gain, and saturation — and we design controllers that make the system behave.
-    </p>
-
-    <p class="socialproof">Limited cohort. Vendor-neutral. Industry and science in deliberate symbiosis.</p>
-
-    <div class="offerline">
-      <strong>Enrollment window:</strong> October&nbsp;15&nbsp;–&nbsp;December&nbsp;15,&nbsp;2025 (Europe/Berlin).<br/>
-      5–7 organizations, non-overlapping verticals, executive sponsorship required.
+  <header role="banner">
+    <div class="wrap" style="padding-bottom: .75rem;">
+      <span class="badge" aria-hidden="true">
+        Independent PI • Control Theory
+      </span>
     </div>
+  </header>
 
-    <!-- Primary CTAs with larger spacing and simpler ask -->
-    <div class="cta-row">
-      <a class="cta-btn"
-         href="mailto:capyhust@gmail.com?subject=Enrollment%20Request%20—%20Tail%20Stability%20Cohort&body=Company%20website%20URL:%0AContact%20person%20(name%2C%20role%2C%20email):%0AOptional%20notes:%0A"
-         aria-label="Send company website and contact person to request enrollment">
-        Send website & contact →
-      </a>
+  <main id="main">
+    <section class="wrap section" style="border-top: none;">
+      <div class="hero">
+        <div>
+          <div class="anchor"><a class="hash" href="#enroll" aria-label="Link to heading">#</a><h1 id="enroll">Tail Stability Research Cohort — industry enrollment</h1></div>
+          <p class="lead">
+            Stabilize p95/p99 tails, reduce spend variance, and gain predictable release velocity — without invasive rewrites.
+            This cohort is small by design and vendor-neutral.
+          </p>
 
-      <a class="cta-btn"
-         href="mailto:capyhust@gmail.com?subject=SCORECARD%20—%20Tail%20Stability%20Cohort&body=Please%20send%20the%20eligibility%20scorecard."
-         aria-label="Request the eligibility scorecard">
-        Request scorecard →
-      </a>
-    </div>
+          <div class="cta-row">
+            <a class="btn btn-primary" href="#start" aria-label="Send website and contact person via form">
+              Send website &amp; contact →
+            </a>
+            <a class="btn btn-ghost" href="mailto:expunity5@gmail.com?subject=Tail%20Stability%20Cohort%20—%20request%20scorecard" rel="nofollow">
+              Request scorecard →
+            </a>
+            <a class="btn btn-ghost" href="#onepager">
+              Get 1-pager overview →
+            </a>
+          </div>
+          <p class="muted" style="margin-top:.75rem">
+            No scheduling link to chase. Just send your company website and the contact person. I’ll reply with the 1-pager and an optional scorecard.
+          </p>
 
-    <div class="cta-hint">No scheduling link. One email is enough — I reply personally.</div>
+          <p class="muted" style="margin-top:.5rem">
+            Current window: Oct 15—Dec 15 (Europe/Berlin). Capacity: 5–7 organizations; non-overlapping verticals; composite “cohort model” built across participants.
+          </p>
+        </div>
 
-    <!-- Keep your hero image from the repo -->
-    <figure class="hero-figure" aria-label="Program illustration">
-      <img src="image.jpeg" alt="Research cohort illustration"/>
-    </figure>
-  </div>
-</header>
+        <figure class="hero-figure">
+          <img
+            src="image.jpeg"
+            alt="Headshot of Aleksandr Silantev"
+            width="1200" height="1500"
+            loading="eager" decoding="async" fetchpriority="high"
+            srcset="image.jpeg 1200w"
+            sizes="(min-width:1024px) 48vw, 100vw">
+        </figure>
+      </div>
+    </section>
 
-<main id="main-content">
-
-  <!-- Why this research -->
-  <section aria-labelledby="why-heading">
-    <div class="wrap">
-      <h2 id="why-heading">Why this research exists</h2>
-
-      <div class="grid grid-3">
-        <div class="card">
+    <section class="wrap section" id="why">
+      <div class="anchor"><a class="hash" href="#why" aria-label="Link to section">#</a><h2>Why this research exists</h2></div>
+      <div class="cards" role="list">
+        <article class="card" role="listitem">
           <h3>Control-loop pathology</h3>
-          <p>
-            Tails inflate when orchestration reacts faster than the plant can settle:
-            async backlogs, shared-seed backoff, bursty concurrency caps, cache TTL flapping.
-          </p>
-        </div>
-        <div class="card">
+          <p>Broken or absent feedback loops let tail latency & spend variance drift. You can’t buy your way out once regressions compound.</p>
+          <p class="muted">Signals: oscillations, bursty p95/p99 tails, drift after deploys, chronic throttle toggling.</p>
+        </article>
+        <article class="card" role="listitem">
           <h3>Scientific approach</h3>
-          <p>
-            Open-loop identification → discrete controllers → proof-of-stability intuition.
-            Armijo line-search for safe step sizing, Lyapunov-style invariants for guardrails.
-          </p>
-        </div>
-        <div class="card">
+          <p>We identify controllable surfaces, add guardrails, and tune closed-loop control with production telemetry, not slideware.</p>
+          <p class="muted">Outcome: repeatable, debuggable improvements with receipts.</p>
+        </article>
+        <article class="card" role="listitem">
           <h3>Economic lens</h3>
-          <p>
-            We treat cost uncertainty as a risk distribution and control the tail via
-            CVaR-aware governors (token budgets & concurrency), not just averages.
-          </p>
+          <p>Performance is budget. Stabilizing tails unlocks predictable cost envelopes and faster, safer releases.</p>
+          <p class="muted">We target p95, canary pass rates, and infra spend volatility.</p>
+        </article>
+      </div>
+
+      <!-- Before/After diagram with clear red and green graphics -->
+      <div class="diagram" role="img" aria-label="Two charts: before shows spiky red p95 latency; after shows smoothed green p95 with lower variance.">
+        <div class="diagram-panel">
+          <div class="diagram-title">
+            <span>Before (unstable p95)</span>
+            <span class="kpi">high variance</span>
+          </div>
+          <svg viewBox="0 0 600 220" aria-hidden="true">
+            <defs>
+              <linearGradient id="r" x1="0" x2="0" y1="0" y2="1">
+                <stop offset="0" stop-color="var(--danger)" stop-opacity=".9"/>
+                <stop offset="1" stop-color="var(--danger)" stop-opacity=".15"/>
+              </linearGradient>
+            </defs>
+            <rect x="0" y="0" width="600" height="220" fill="none"/>
+            <!-- spiky red line -->
+            <path d="M0,160
+                     C40,120 60,200 90,150
+                     S140,80 170,170
+                     S220,210 255,120
+                     S290,60 320,190
+                     S360,200 390,110
+                     S440,70 470,195
+                     S520,205 560,120" fill="none" stroke="var(--danger)" stroke-width="3"/>
+            <!-- baseline -->
+            <line x1="0" y1="180" x2="600" y2="180" stroke="rgba(255,255,255,.12)" stroke-width="1" stroke-dasharray="4 6"/>
+          </svg>
+        </div>
+        <div class="diagram-panel">
+          <div class="diagram-title">
+            <span>After (stabilized p95)</span>
+            <span class="kpi">variance ↓, headroom ↑</span>
+          </div>
+          <svg viewBox="0 0 600 220" aria-hidden="true">
+            <defs>
+              <linearGradient id="g" x1="0" x2="0" y1="0" y2="1">
+                <stop offset="0" stop-color="var(--success)" stop-opacity=".9"/>
+                <stop offset="1" stop-color="var(--success)" stop-opacity=".15"/>
+              </linearGradient>
+            </defs>
+            <rect x="0" y="0" width="600" height="220" fill="none"/>
+            <!-- smoothed green line -->
+            <path d="M0,170
+                     C60,160 120,165 180,158
+                     S300,152 360,148
+                     S480,145 540,146
+                     S600,147 600,147" fill="none" stroke="var(--success)" stroke-width="3"/>
+            <!-- baseline -->
+            <line x1="0" y1="180" x2="600" y2="180" stroke="rgba(255,255,255,.12)" stroke-width="1" stroke-dasharray="4 6"/>
+          </svg>
         </div>
       </div>
+      <p class="muted" style="margin-top:.5rem">Left: noisy, spiky p95; Right: flattened p95 after closed-loop control. We reduce post-deploy variance without blocking feature work.</p>
+    </section>
 
-      <div class="emphasis-line">
-        Goal: reduce p95/p99 and unit-economics variance without model or vendor changes — by fixing the loop around the model.
-      </div>
-
-      <!-- BEFORE/AFTER diagram (inline SVG, red → green) -->
-      <div class="viz" role="img" aria-label="Before/after stabilization: red high-variance tail vs green stabilized tail">
-        <svg viewBox="0 0 720 220" width="100%" height="auto" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <defs>
-            <linearGradient id="redfade" x1="0" x2="0" y1="0" y2="1">
-              <stop offset="0%" stop-color="#ef4444" stop-opacity="0.8"/>
-              <stop offset="100%" stop-color="#ef4444" stop-opacity="0.1"/>
-            </linearGradient>
-            <linearGradient id="greenfade" x1="0" x2="0" y1="0" y2="1">
-              <stop offset="0%" stop-color="#22c55e" stop-opacity="0.8"/>
-              <stop offset="100%" stop-color="#22c55e" stop-opacity="0.1"/>
-            </linearGradient>
-          </defs>
-
-          <!-- Panels -->
-          <g transform="translate(40,10)" fill="none" stroke="#2a2f3f" stroke-width="1">
-            <rect x="0" y="0" width="300" height="180" rx="8" />
-            <rect x="340" y="0" width="300" height="180" rx="8" />
-          </g>
-
-          <!-- Titles -->
-          <text x="190" y="205" fill="#9ca3af" font-size="12" text-anchor="middle">Before (unstable tail)</text>
-          <text x="530" y="205" fill="#9ca3af" font-size="12" text-anchor="middle">After (stabilized)</text>
-
-          <!-- BEFORE curve (red) -->
-          <path d="M40,140 C80,60 120,200 160,80 S240,200 300,60"
-                fill="none" stroke="#ef4444" stroke-width="2.5"/>
-          <path d="M40,140 C80,60 120,200 160,80 S240,200 300,60 L300,190 40,190 Z"
-                fill="url(#redfade)" stroke="none"/>
-
-          <!-- AFTER curve (green) -->
-          <path d="M340,130 C380,120 420,118 460,122 S540,126 600,124"
-                fill="none" stroke="#22c55e" stroke-width="2.5"/>
-          <path d="M340,130 C380,120 420,118 460,122 S540,126 600,124 L600,190 340,190 Z"
-                fill="url(#greenfade)" stroke="none"/>
-
-          <!-- p95 guides -->
-          <g stroke-dasharray="4 4" stroke="#9ca3af" opacity=".6">
-            <line x1="40" y1="100" x2="300" y2="100"/>
-            <line x1="340" y1="130" x2="600" y2="130"/>
-          </g>
-          <text x="46" y="96"  fill="#9ca3af" font-size="11">p95 (before)</text>
-          <text x="346" y="126" fill="#9ca3af" font-size="11">p95 (after)</text>
-        </svg>
-      </div>
-    </div>
-  </section>
-
-  <!-- For executives -->
-  <section aria-labelledby="exec-heading">
-    <div class="wrap">
-      <h2 id="exec-heading">For executives — what’s in it for you</h2>
-
-      <div class="grid grid-3">
-        <div class="card">
+    <section class="wrap section" id="exec">
+      <div class="anchor"><a class="hash" href="#exec" aria-label="Link to section">#</a><h2>For executives — what’s in it for you</h2></div>
+      <div class="cards" role="list">
+        <article class="card" role="listitem">
           <h3>Operational stability</h3>
-          <p>Fewer tail-driven incidents, less paging at peak, controlled rollouts with guardrails,
-            and a rollback-ready verification plan your teams can own.</p>
-        </div>
-        <div class="card">
+          <p>Tail stabilization raises canary pass rates and shrinks rollbacks; teams spend less time firefighting and more time shipping.</p>
+        </article>
+        <article class="card" role="listitem">
           <h3>Financial predictability</h3>
-          <p>Lower variance of cost per session; caps on attempts-per-success; vendor RL hits tamed.
-            Budgeting and board reporting stop being hostage to the long tail.</p>
-        </div>
-        <div class="card">
+          <p>Reduced variance and controlled peak spend. We report with receipts: p95 deltas, spend envelopes, and guardrail breaches.</p>
+        </article>
+        <article class="card" role="listitem">
           <h3>Regulatory posture</h3>
-          <p>A concise “defense file”: what was unstable, what control was added, how it’s verified.
-            Maps cleanly to internal risk frameworks and external expectations.</p>
-        </div>
-
-        <div class="card">
-          <h3>Speed without chaos</h3>
-          <p>Ramp governors and deadbands let product iterate without flapping toggles or
-            burning credibility on failed rollouts.</p>
-        </div>
-        <div class="card">
+          <p>Better auditability and change control via explicit controllers and playbooks. Useful in regulated environments.</p>
+        </article>
+        <article class="card" role="listitem">
+          <h3>Speed w/out chaos</h3>
+          <p>Stability enables safe parallelism: more feature flags live at once, fewer backouts, higher deploy confidence.</p>
+        </article>
+        <article class="card" role="listitem">
           <h3>Vendor leverage</h3>
-          <p>Neutral, controller-level fixes decouple you from any single model provider.
-            Better negotiation posture; fewer involuntary migrations.</p>
-        </div>
-        <div class="card">
+          <p>We are vendor-neutral. We document the knobs you control and the ones vendors must expose; helpful in negotiations.</p>
+        </article>
+        <article class="card" role="listitem">
           <h3>Recruiting & brand</h3>
-          <p>Participating in applied research (with optional acknowledgment) signals depth.
-            Engineers prefer companies that do rigorous, real science in prod.</p>
-        </div>
+          <p>Clear SLOs and honest post-incidents signal engineering maturity. That attracts senior talent.</p>
+        </article>
       </div>
 
-      <div class="emphasis-line">
-        Deliverables are engineer-facing (Patch Maps, stubs, verification plans) — but they de-risk the business outcomes you report to the board.
+      <div class="cta-row" style="margin-top:1.25rem">
+        <a class="btn btn-primary" href="#start">Send website &amp; contact →</a>
+        <a class="btn btn-ghost" href="mailto:expunity5@gmail.com?subject=Tail%20Stability%20Cohort%20—%20request%20scorecard">Request scorecard →</a>
       </div>
+    </section>
 
-      <!-- Secondary CTAs -->
-      <div class="cta-row">
-        <a class="cta-btn"
-           href="mailto:capyhust@gmail.com?subject=Enrollment%20Request%20—%20Tail%20Stability%20Cohort&body=Company%20website%20URL:%0AContact%20person%20(name%2C%20role%2C%20email):%0AOptional%20notes:%0A">
-          Send website & contact →
-        </a>
-        <a class="cta-btn"
-           href="mailto:capyhust@gmail.com?subject=OVERVIEW%20—%20Tail%20Stability%20Cohort&body=Please%20send%20the%201-page%20overview.">
-          Get 1-page overview →
-        </a>
-      </div>
-      <div class="cta-hint">That’s all I need to start scoping your loop boundary.</div>
-    </div>
-  </section>
-
-  <!-- Method -->
-  <section aria-labelledby="method-heading">
-    <div class="wrap">
-      <h2 id="method-heading">Method & rigor</h2>
-
-      <div class="grid grid-2">
-        <div class="card">
+    <section class="wrap section" id="method">
+      <div class="anchor"><a class="hash" href="#method" aria-label="Link to section">#</a><h2>Method &amp; rigor</h2></div>
+      <div class="cards" role="list">
+        <article class="card" role="listitem">
           <h3>Identification → control</h3>
-          <p>We characterize delay, loop gain, saturation, and noise. Then we synthesize
-             anti-windup PI for queue/inflight, Smith predictors for long delays,
-             Kalman + CUSUM for noisy KPIs/drift, and ramp/MPC-lite governors for tokens & concurrency.</p>
-        </div>
-        <div class="card">
-          <h3>Stability & optimization</h3>
-          <p>Lyapunov-style invariants act as safety rails. Armijo backtracking selects safe step sizes for tuning.
-             CVaR guards bound the economic tail risk while canary tests (5–20% hash) and non-parametric tail stats prove the win.</p>
-        </div>
+          <p>Map actuators (knobs) to observed outputs (tails &amp; spend). Start with canary lanes, add guardrails, then tune controller gains.</p>
+          <ul class="muted">
+            <li>Diagnostics: oscillations, saturation, dead-bands</li>
+            <li>Guardrails: bounds, hysteresis, rate limits</li>
+            <li>Receipts: diffs, SLO deltas, rollout envelopes</li>
+          </ul>
+        </article>
+        <article class="card" role="listitem">
+          <h3>Stability &amp; optimization</h3>
+          <p>Safeguard stability before chasing optimality. The right order reduces incidents and preserves credibility.</p>
+          <ul class="muted">
+            <li>Lyapunov-style thinking for safety margins</li>
+            <li>Data-driven, vendor-neutral recommendations</li>
+            <li>No invasive rewrites required</li>
+          </ul>
+        </article>
+        <article class="card" role="listitem" id="onepager">
+          <h3>1-pager overview</h3>
+          <p>Short, non-confidential description of scope, steps, and deliverables. Ask for it via the form or email below.</p>
+          <div class="cta-row">
+            <a class="btn btn-ghost" href="mailto:expunity5@gmail.com?subject=Tail%20Stability%20Cohort%20—%20request%20one-pager">Email for 1-pager →</a>
+          </div>
+        </article>
       </div>
+    </section>
 
-      <div class="muted-line">
-        Publication plan: an anonymized arXiv preprint and subsequent journal submission are planned (no guarantees).
-        Partner acknowledgment is opt-in and pre-approved by you.
-      </div>
-    </div>
-  </section>
-
-  <!-- Timeline -->
-  <section aria-labelledby="timeline-heading">
-    <div class="wrap">
-      <h2 id="timeline-heading">Enrollment timeline (2025)</h2>
-
+    <section class="wrap section" id="timeline">
+      <div class="anchor"><a class="hash" href="#timeline" aria-label="Link to section">#</a><h2>Enrollment timeline (2025)</h2></div>
       <div class="timeline">
-        <div class="card">
-          <h3>Oct 15 – Dec 15</h3>
-          <p>Enrollment window (Europe/Berlin). Request the scorecard; we confirm fit and non-overlap.
-             No meetings required to express interest.</p>
-        </div>
-        <div class="card">
+        <article class="tcard">
+          <h3>Oct 15 → Dec 15</h3>
+          <ul>
+            <li>Brief intro call (optional).</li>
+            <li>Share website + contact person + problem signals.</li>
+            <li>We confirm fit and sequencing across the cohort.</li>
+          </ul>
+        </article>
+        <article class="tcard">
           <h3>Week 1 (per org)</h3>
-          <p>Eligibility scorecard review → boundary scoping → optional 90-minute problem-framing session
-             that produces Patch Maps and verification outline.</p>
-        </div>
-        <div class="card">
+          <ul>
+            <li>Deep-dive: telemetry access &amp; canary lanes.</li>
+            <li>Identify actuators; define guardrails.</li>
+            <li>Initial controller; receipts for every change.</li>
+          </ul>
+        </article>
+        <article class="tcard">
           <h3>Weeks 2–3 (optional)</h3>
-          <p>Focused control sprint with canary, guardrails, and retune. You implement; I supply controller design
-             and checkpoints. Capacity remains intentionally limited — this is applied research, not a queue of tickets.</p>
+          <ul>
+            <li>Tuning for stability first, then optimality.</li>
+            <li>Documented playbooks; hand-off to owners.</li>
+            <li>Scorecard &amp; go-forward options.</li>
+          </ul>
+        </article>
+      </div>
+      <div class="cta-row" style="margin-top:1.25rem">
+        <a class="btn btn-primary" href="#start">Send website &amp; contact →</a>
+      </div>
+    </section>
+
+    <section class="wrap section" id="start">
+      <div class="anchor"><a class="hash" href="#start" aria-label="Link to section">#</a><h2>How to express interest</h2></div>
+
+      <div class="cards" style="margin-bottom:1rem">
+        <article class="card" style="grid-column: span 12;">
+          <h3>One simple email</h3>
+          <p>Reply with your company website URL and the contact person (name &amp; role). That’s it — I’ll reply with the 1-pager and an optional scorecard. Or use the short form below.</p>
+          <div class="cta-row">
+            <a class="btn btn-ghost" href="mailto:expunity5@gmail.com?subject=Tail%20Stability%20Cohort%20—%20interest&body=Company%20website%3A%20%0AContact%20person%20(name%20%2B%20role)%3A%20%0ASignals%20observed%20(optional)%3A%20">
+              Send website &amp; contact →
+            </a>
+          </div>
+        </article>
+      </div>
+
+      <!-- Minimal form (GH Pages friendly with serverless endpoint; replace action with your provider) -->
+      <form class="form" action="https://formspree.io/f/your-endpoint" method="POST">
+        <div class="cards" style="--gap:1rem;">
+          <div class="card" style="grid-column: span 6;">
+            <label for="name">Contact person</label>
+            <input id="name" name="name" type="text" placeholder="Full name" autocomplete="name" required>
+            <label for="role">Role</label>
+            <input id="role" name="role" type="text" placeholder="Title / function" autocomplete="organization-title">
+          </div>
+          <div class="card" style="grid-column: span 6;">
+            <label for="email">Work email</label>
+            <input id="email" name="email" type="email" placeholder="name@company.tld" autocomplete="email" required>
+            <label for="site">Company website</label>
+            <input id="site" name="website" type="url" placeholder="https://company.tld" pattern="https?://.+" inputmode="url" required>
+          </div>
+          <div class="card" style="grid-column: span 12;">
+            <label for="msg">Signals observed (optional)</label>
+            <textarea id="msg" name="message" rows="4" placeholder="e.g., p95 spikes after deploys; canary fails when cache warms; spend variance on weekends…"></textarea>
+            <small>Privacy: We’ll use your details only to respond to your inquiry. No resale, no newsletters.</small>
+            <div class="cta-row" style="margin-top:.75rem">
+              <button class="btn btn-primary" type="submit">Send website &amp; contact →</button>
+              <a class="btn btn-ghost" href="mailto:expunity5@gmail.com">Or email instead</a>
+            </div>
+          </div>
         </div>
+      </form>
+    </section>
+  </main>
+
+  <footer role="contentinfo">
+    <div class="wrap footgrid">
+      <div class="footcol">
+        <h3 style="margin-top:0">About</h3>
+        <p>
+          Aleksandr Silantev — independent PI (control theory). I ship production-ready control patches, not slideware.
+          This cohort is vendor-neutral and privacy-first; full technical docs are provided on request and during collaboration.
+        </p>
+        <p>Contact: <a href="mailto:expunity5@gmail.com">expunity5@gmail.com</a></p>
       </div>
-
-      <div class="muted-line">
-        Industry and science progress together here. Your participation supports applied R&amp;D while your systems benefit from first-class control design.
-      </div>
-    </div>
-  </section>
-
-  <!-- How to express interest -->
-  <section id="start" aria-labelledby="start-heading">
-    <div class="wrap">
-      <h2 id="start-heading">How to express interest</h2>
-
-      <div class="card checklist-card">
-        <h3>One simple email</h3>
-        <ul>
-          <li>Paste <strong>your company website URL</strong>.</li>
-          <li>Add a <strong>contact person</strong> (name, role, email).</li>
-          <li>Optional: one-line note on your p95/p99 or cost variance.</li>
-        </ul>
-
-        <div class="cta-row" style="margin-top:1rem">
-          <a class="cta-btn"
-             href="mailto:capyhust@gmail.com?subject=Enrollment%20Request%20—%20Tail%20Stability%20Cohort&body=Company%20website%20URL:%0AContact%20person%20(name%2C%20role%2C%20email):%0AOptional%20notes:%0A">
-            Send website & contact →
-          </a>
-          <a class="cta-btn"
-             href="mailto:capyhust@gmail.com?subject=SCORECARD%20—%20Tail%20Stability%20Cohort&body=Please%20send%20the%20eligibility%20scorecard.">
-            Request scorecard →
-          </a>
-        </div>
-
-        <div class="muted-line">No attachments required. Anonymized slices only if we proceed. Your team keeps full control of code and rollout.</div>
+      <div class="footcol" id="legal">
+        <h3 style="margin-top:0">Imprint &amp; Privacy (EU)</h3>
+        <p>
+          Controller: Your Name / Entity • Address line • City, Country. <br>
+          Purpose: respond to inquiries and coordinate cohort onboarding. Data is deleted upon request or after inactivity.
+          No tracking cookies by default; consider privacy-friendly analytics (e.g., Plausible).
+        </p>
+        <p>
+          © 2025 Tail Stability Research Cohort. All rights reserved.
+        </p>
       </div>
     </div>
-  </section>
-</main>
+  </footer>
 
-<footer role="contentinfo">
-  <div class="foot-grid">
-    <div class="bio-block">
-      <strong>Aleksandr Silantev</strong><br/>
-      Independent Principal Investigator — Control Systems for AI &amp; Automation
-      <div class="bio-desc">
-        My background spans stability theory, runtime optimization, and systems engineering.
-        I apply Lyapunov-style reasoning to production loops, use Armijo line-search to stay inside safe steps,
-        and apply CVaR-aware governors to keep economic tails bounded.
-        This cohort is small by design; I work closely with a handful of organizations at a time.
-      </div>
-    </div>
-
-    <div class="contact-box" aria-label="Contact information">
-      <div class="contact-box-title">Contact</div>
-      <div class="contact-email">capyhust@gmail.com</div>
-      <div class="contact-note">EU-based · Remote · Boutique cohort (non-overlapping verticals)</div>
-    </div>
-  </div>
-</footer>
-
-<div class="copyright wrap">© 2025 Aleksandr Silantev — All rights reserved.</div>
-
+  <!-- Optional privacy-friendly analytics (example):
+  <script defer data-domain="your-domain.example" src="https://plausible.io/js/script.js"></script>
+  -->
 </body>
 </html>
