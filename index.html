@@ -4,233 +4,226 @@
   <!-- SEO basics -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Cut p95/p99 latency tails 30–50% in 4 weeks—no rewrites.</title>
-  <meta name="description" content="Economic + control theory methods to stabilize spend and releases. Enrollment limited; vendor-neutral, privacy-first.">
+  <title>Cut p95/p99 latency tails 30–50% in 4 weeks — no rewrites</title>
+  <meta name="description" content="Tail Stability Research Cohort: economic + control-theory methods to stabilize spend and releases. Vendor-neutral, privacy-first. Limited enrollment.">
 
   <!-- Open Graph & Twitter -->
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Tail Stability Research Cohort">
-  <meta property="og:title" content="Tail Stability Research Cohort — Industry Enrollment">
-  <meta property="og:description" content="Stabilize p95/p99 tails, cut variance, and ship predictable performance. 5–7 orgs; vendor-neutral; privacy-first.">
+  <meta property="og:title" content="Cut p95/p99 latency tails 30–50% in 4 weeks — no rewrites">
+  <meta property="og:description" content="Stabilize p95/p99 tails, cut variance, and ship predictable performance. Vendor-neutral, privacy-first.">
   <meta property="og:image" content="image.jpeg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="1500">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Tail Stability Research Cohort — Industry Enrollment">
-  <meta name="twitter:description" content="Stabilize p95/p99 tails, cut variance, and ship predictable performance. 5–7 orgs; vendor-neutral; privacy-first.">
+  <meta name="twitter:title" content="Cut p95/p99 latency tails 30–50% in 4 weeks — no rewrites">
+  <meta name="twitter:description" content="Stabilize p95/p99 tails, cut variance, and ship predictable performance. Vendor-neutral, privacy-first.">
   <meta name="twitter:image" content="image.jpeg">
 
-  <!-- Structured Data (Person only, no placeholder URLs) -->
+  <!-- Structured Data (Person) -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "Person",
     "name": "Aleksandr Silantev",
-    "jobTitle": "Independent PI — Control Theory",
+    "jobTitle": "Independent PI — Control theory",
     "email": "mailto:capyhust@gmail.com"
   }
   </script>
 
   <style>
     :root{
-      --bg: #0b1219;
-      --panel: #0f1821;
-      --muted: #9ca3af;
-      --text: #f5f7fa;
-      --text-dim: #d1d5db;
-      --line: #1f2a37;
-      --brand: #22d3ee;
-      --danger: #ef4444;
-      --success: #22c55e;
-      --radius: 16px;
-      --shadow: 0 10px 30px rgba(0,0,0,.35);
-      --maxw: 1100px;
+      --bg:#0b1219;
+      --panel:#0f1821;
+      --muted:#9ca3af;
+      --text:#f5f7fa;
+      --text-dim:#d1d5db;
+      --line:#2a3947; /* slightly brighter for clearer dividers */
+      --brand:#22d3ee;
+      --danger:#ef4444;
+      --success:#22c55e;
+      --radius:16px;
+      --shadow:0 10px 30px rgba(0,0,0,.35);
+      --maxw:1100px;
 
       /* type scale */
-      --s-1: .85rem;
-      --s0: 1rem;
-      --s1: 1.125rem;
-      --s2: 1.35rem;
-      --s3: clamp(1.6rem, 1.2rem + 1.6vw, 2.2rem);
-      --s4: clamp(2.0rem, 1.6rem + 2.0vw, 2.8rem);
+      --s-1:.85rem;
+      --s0:1rem;
+      --s1:1.125rem;
+      --s2:1.35rem;
+      --s3:clamp(1.6rem,1.2rem + 1.6vw,2.2rem);
+      --s4:clamp(2.0rem,1.6rem + 2.0vw,2.8rem);
 
       /* spacing */
-      --section-pb: clamp(2.0rem, 4vw, 3.5rem);
-      --section-pt: clamp(2.25rem, 4.5vw, 4rem);
+      --section-pb:clamp(2.0rem,4vw,3.5rem);
+      --section-pt:clamp(2.25rem,4.5vw,4rem);
 
       /* buttons */
-      --btn-pad-y: .95rem;
-      --btn-pad-x: 1.25rem;
+      --btn-pad-y:.95rem;
+      --btn-pad-x:1.25rem;
     }
 
     html,body{
-      background: var(--bg);
-      color: var(--text);
-      font: 400 16px/1.6 ui-sans-serif, -apple-system, system-ui, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Apple Color Emoji","Segoe UI Emoji";
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
+      background:var(--bg);
+      color:var(--text);
+      font:400 16px/1.6 ui-sans-serif,-apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Apple Color Emoji","Segoe UI Emoji";
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
       margin:0;
     }
 
     /* links */
-    a{ color: var(--text); }
-    a:hover:not(.btn){ text-decoration: underline; }
-    footer a{ color:#fff; font-weight:600; }
+    a:not(.btn){ color:var(--brand); text-decoration:underline; text-underline-offset:2px; }
+    a:hover:not(.btn){ filter:brightness(1.1); }
+    footer a{ color:#a5e7f3; font-weight:600; text-decoration:underline; }
 
     .skip-link{
       position:absolute; left:-9999px; top:auto; width:1px; height:1px; overflow:hidden;
     }
     .skip-link:focus{
-      position: fixed; left: 12px; top: 12px; width:auto; height:auto; padding:.5rem .75rem; background:#fff; color:#000; border-radius:8px; z-index:9999;
+      position:fixed; left:12px; top:12px; width:auto; height:auto; padding:.5rem .75rem; background:#fff; color:#000; border-radius:8px; z-index:9999;
     }
 
-    header{ padding: 1rem 1rem 0; }
-    .wrap{ max-width: var(--maxw); margin: 0 auto; padding: 0 1rem; }
-    .section{ padding: var(--section-pt) 0 var(--section-pb); border-top: 1px solid var(--line); }
+    header{ padding:1rem 1rem 0; }
+    .wrap{ max-width:var(--maxw); margin:0 auto; padding-left:clamp(16px,5vw,28px); padding-right:clamp(16px,5vw,28px); }
 
-    h1{ font-size: var(--s4); line-height: 1.15; margin:.25rem 0 1rem; }
-    h2{ font-size: var(--s3); margin:0 0 1rem; }
-    h3{ font-size: var(--s2); margin:0 0 .35rem; }
-    p{ color: var(--text-dim); margin: .35rem 0 1rem; }
+    .section{ padding:var(--section-pt) 0 var(--section-pb); border-top:1px solid var(--line); }
 
-    .lead{ font-size: var(--s1); color: var(--text-dim); max-width: 70ch; }
+    h1{ font-size:var(--s4); line-height:1.15; margin:.25rem 0 1rem; }
+    h2{ font-size:var(--s3); margin:0 0 .85rem; }
+    h3{ font-size:var(--s2); margin:0 0 .35rem; }
+    p{ color:var(--text-dim); margin:.35rem 0 1rem; max-width:75ch; }
+
+    .lead{ font-size:var(--s1); color:var(--text-dim); max-width:72ch; }
     .badge{ display:inline-flex; gap:.5rem; align-items:center; padding:.35rem .6rem; border:1px solid var(--line); border-radius:999px; color:var(--text-dim); font-size:.92rem; }
-    .muted{ color: var(--muted); }
+    .muted{ color:var(--muted); }
 
-    .cta-row{ display:flex; gap: .75rem; flex-wrap: wrap; margin: 1.25rem 0 0; }
+    .cta-row{ display:flex; gap:.75rem; flex-wrap:wrap; margin:1rem 0 0; }
     .btn{
       display:inline-flex; align-items:center; justify-content:center; gap:.5rem;
-      padding: var(--btn-pad-y) var(--btn-pad-x);
-      border-radius: 999px;
+      padding:var(--btn-pad-y) var(--btn-pad-x);
+      border-radius:999px;
       text-decoration:none; font-weight:700; letter-spacing:.2px;
-      transition: transform .06s ease, box-shadow .2s ease, background .2s ease, color .2s ease, filter .2s ease;
-      border: 1px solid transparent;
+      transition:transform .06s ease, box-shadow .2s ease, background .2s ease, color .2s ease, filter .2s ease;
+      border:1px solid transparent;
     }
-    .btn:focus-visible{ outline: 3px solid currentColor; outline-offset: 2px; }
-    .btn-primary{
-      background: var(--brand); color:#041018; border-color: transparent;
-      box-shadow: 0 8px 24px rgba(34,211,238,.25);
+    .btn:focus-visible{ outline:3px solid currentColor; outline-offset:2px; }
+    .btn-primary{ background:var(--brand); color:#041018; border-color:transparent; box-shadow:0 8px 24px rgba(34,211,238,.25); }
+    .btn-primary:hover{ transform:translateY(-1px); }
+    .btn-ghost{ background:transparent; color:var(--text); border-color:var(--line); }
+    .btn-ghost:hover{ background:rgba(255,255,255,.03); transform:translateY(-1px); }
+
+    /* sticky mini-nav for quick jumps */
+    .sticky-nav{
+      position:sticky; top:0; z-index:50;
+      background:rgba(11,18,25,.8); backdrop-filter:saturate(140%) blur(6px);
+      border-bottom:1px solid var(--line);
     }
-    .btn-primary:hover{ transform: translateY(-1px); }
-    .btn-ghost{
-      background: transparent; color: var(--text); border-color: var(--line);
-    }
-    .btn-ghost:hover{ background: rgba(255,255,255,.03); transform: translateY(-1px); }
+    .sticky-nav .wrap{ display:flex; gap:1rem; align-items:center; padding-top:.5rem; padding-bottom:.5rem; }
+    .sticky-nav a{ font-size:.95rem; color:var(--text-dim); text-decoration:none; padding:.35rem .55rem; border-radius:999px; border:1px solid transparent; }
+    .sticky-nav a:hover{ color:#fff; border-color:var(--line); }
 
     .hero{
-      display:grid; grid-template-columns: 1.15fr .85fr; gap: clamp(1rem, 4vw, 2rem);
-      align-items: start;
+      display:grid; grid-template-columns: 1fr .8fr; gap:clamp(1rem,4vw,2rem);
+      align-items:start;
     }
-    @media (max-width: 980px){
-      .hero{ grid-template-columns: 1fr; }
-    }
+    @media (max-width:980px){ .hero{ grid-template-columns:1fr; } }
     figure.hero-figure{
-      margin:0; background: #0c131b; border:1px solid var(--line); border-radius: var(--radius); overflow:hidden; box-shadow: var(--shadow);
-      max-height: 560px;
+      margin:0; background:#0c131b; border:1px solid var(--line); border-radius:var(--radius); overflow:hidden; box-shadow:var(--shadow);
+      max-height:520px;
     }
-    figure.hero-figure img{
-      display:block; width:100%; height:100%; object-fit: cover; object-position: center 20%;
-    }
+    figure.hero-figure img{ display:block; width:100%; height:100%; object-fit:cover; object-position:center 20%; }
 
-    .cards{ display:grid; grid-template-columns: repeat(12, 1fr); gap: 1rem; }
+    .cards{ display:grid; grid-template-columns:repeat(12,1fr); gap:1rem; }
     .card{
-      grid-column: span 4; background: var(--panel); border:1px solid var(--line); border-radius: var(--radius); padding:1rem 1rem;
+      grid-column:span 4; background:var(--panel); border:1px solid var(--line); border-radius:var(--radius); padding:1rem 1rem;
     }
-    @media (max-width: 900px){ .card{ grid-column: span 12; } }
-
-    .diagram{
-      display:grid; grid-template-columns: repeat(2,1fr); gap: 1rem;
-      background: linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.00));
-      border:1px solid var(--line); border-radius: var(--radius); padding: 1rem;
-    }
-    .diagram-panel{
-      background: #0b141c; border:1px solid var(--line); border-radius: 12px; padding: .75rem;
-    }
-    .diagram-title{ display:flex; justify-content:space-between; align-items:center; font-size:.95rem; color: var(--muted); margin-bottom:.25rem; }
-    .diagram svg{ width:100%; height:220px; display:block; }
-
-    .kpi{ font-weight:700; color:#fff; }
+    @media (max-width:900px){ .card{ grid-column:span 12; } }
 
     /* Proof module */
-    .proof-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:1rem;}
-    .proof-right{grid-column:span 4;background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:1rem;}
-    .proof-left{grid-column:span 8;}
-    @media (max-width:900px){.proof-left,.proof-right{grid-column:span 12;}}
+    .proof-grid{ display:grid; grid-template-columns:repeat(12,1fr); gap:1rem; }
+    .proof-right{ grid-column:span 4; background:var(--panel); border:1px solid var(--line); border-radius:var(--radius); padding:1rem; display:flex; flex-direction:column; }
+    .proof-left{ grid-column:span 8; }
+    @media (max-width:900px){ .proof-left,.proof-right{ grid-column:span 12; } }
 
-    .stat{background:#0c131b;border:1px solid var(--line);border-radius:12px;padding:.9rem}
-    .stat .label{color:var(--muted);font-size:.92rem;margin-bottom:.25rem}
-    .stat .num{font-weight:800;font-size:1.65rem;color:#fff}
-    .stat .note{color:var(--muted);font-size:.85rem;margin-top:.35rem}
+    .stat{ background:#0c131b; border:1px solid var(--line); border-radius:var(--radius); padding:.9rem; }
+    .stat .label{ color:var(--muted); font-size:.92rem; margin-bottom:.25rem; }
+    .stat .num{ font-weight:800; font-size:1.65rem; color:#fff; }
+    .stat .note{ color:var(--muted); font-size:.85rem; margin-top:.35rem; }
 
-    .shot{position:relative;background:#0c131b;border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden}
-    .shot-head{display:flex;gap:.4rem;align-items:center;height:34px;padding:0 .75rem;border-bottom:1px solid var(--line);background:#0f1821}
-    .shot-dot{width:10px;height:10px;border-radius:999px;background:#ef4444}
-    .shot-dot:nth-child(2){background:#f59e0b}
-    .shot-dot:nth-child(3){background:#10b981}
-    .shot-cap{position:absolute;right:.75rem;top:.35rem;font-size:.8rem;color:var(--muted)}
-    .shot svg{display:block;width:100%;height:300px}
-    .shot-watermark{position:absolute;inset:auto 0 8px 0;text-align:center;color:rgba(255,255,255,.45);font-size:.8rem}
+    .shot{ position:relative; background:#0c131b; border:1px solid var(--line); border-radius:var(--radius); box-shadow:var(--shadow); overflow:hidden; }
+    .shot-head{ display:flex; gap:.35rem; align-items:center; height:34px; padding:0 .75rem; border-bottom:1px solid var(--line); background:#0f1821; }
+    .shot-dot{ width:8px; height:8px; border-radius:999px; background:#ef4444; opacity:.6; }
+    .shot-dot:nth-child(2){ background:#f59e0b; }
+    .shot-dot:nth-child(3){ background:#10b981; }
+    .shot-cap{ position:absolute; right:.75rem; top:.35rem; font-size:.8rem; color:var(--muted); }
+    .shot svg{ display:block; width:100%; height:300px; }
+    .shot-watermark{ position:absolute; inset:auto 0 8px 0; text-align:center; color:rgba(255,255,255,.6); font-size:.8rem; }
 
-    .timeline{ display:grid; grid-template-columns: repeat(12, 1fr); gap: 1rem; }
-    .timeline .tcard{ grid-column: span 4; background: var(--panel); border:1px solid var(--line); border-radius: var(--radius); padding: 1rem; }
-    @media (max-width: 900px){ .timeline .tcard{ grid-column: span 12; } }
+    .timeline{ display:grid; grid-template-columns:repeat(12,1fr); gap:1rem; }
+    .timeline .tcard{ grid-column:span 4; background:var(--panel); border:1px solid var(--line); border-radius:var(--radius); padding:1rem; }
+    @media (max-width:900px){ .timeline .tcard{ grid-column:span 12; } }
     .timeline ul{ margin:.5rem 0 0; padding-left:1.1rem; }
-    .timeline li{ color: var(--text-dim); margin:.25rem 0; }
+    .timeline li{ color:var(--text-dim); margin:.25rem 0; }
 
-    .form{
-      background: var(--panel); border:1px solid var(--line); border-radius: var(--radius);
-      padding: 1rem; box-shadow: var(--shadow);
-    }
-    .form label{ display:block; font-weight:600; margin:.5rem 0 .25rem; }
-    .form input, .form textarea{
-      width:100%; padding:.8rem .9rem; border-radius: 10px; background:#0c131b; color:#fff; border:1px solid var(--line);
-    }
-    .form small{ color: var(--muted); display:block; margin-top:.25rem; }
+    .form{ background:var(--panel); border:1px solid var(--line); border-radius:var(--radius); padding:1rem; box-shadow:var(--shadow); }
+    .form label{ display:block; font-weight:600; margin:.5rem 0 .25rem; color:#fff; }
+    .form label .req{ color:#66e3f3; margin-left:.25rem; }
+    .form input,.form textarea{ width:100%; padding:.8rem .9rem; border-radius:10px; background:#0c131b; color:#fff; border:1px solid var(--line); }
+    .form input:focus,.form textarea:focus{ outline:3px solid #66e3f3; outline-offset:2px; }
+    .form small{ color:var(--muted); display:block; margin-top:.25rem; }
 
-    footer{ padding: 2rem 0 4rem; border-top: 1px solid var(--line); color: var(--muted); }
-    .footgrid{ display:grid; grid-template-columns: repeat(12,1fr); gap:1rem; }
-    .footcol{ grid-column: span 6; }
-    @media (max-width: 900px){ .footcol{ grid-column: span 12; } }
+    footer{ padding:2rem 0 4rem; border-top:1px solid var(--line); color:var(--muted); }
+    .footgrid{ display:grid; grid-template-columns:repeat(12,1fr); gap:1rem; }
+    .footcol{ grid-column:span 6; }
+    @media (max-width:900px){ .footcol{ grid-column:span 12; } }
 
-    .anchor{ position: relative; }
-    .anchor a.hash{
-      position:absolute; left:-1.2rem; opacity:0; text-decoration:none; color: var(--muted);
-    }
-    .anchor:hover a.hash{ opacity:1; }
+    /* anchor hashes align without nudging the heading text */
+    .anchor{ position:relative; padding-left:1.2rem; }
+    .anchor a.hash{ position:absolute; left:0; opacity:0.8; text-decoration:none; color:var(--muted); }
+    .anchor a.hash:focus,.anchor:hover a.hash{ opacity:1; }
+
+    /* back-to-top (appears after scroll) */
+    .toplink{ position:fixed; right:14px; bottom:18px; z-index:40; display:none; }
+    .toplink a{ background:var(--panel); border:1px solid var(--line); color:#fff; padding:.55rem .7rem; border-radius:999px; text-decoration:none; }
+    .toplink a:hover{ filter:brightness(1.1); }
   </style>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
 
+  <!-- Sticky mini-nav -->
+  <nav class="sticky-nav" aria-label="Quick section links">
+    <div class="wrap">
+      <a href="#why">Why</a>
+      <a href="#proof">Results</a>
+      <a href="#method">Method</a>
+      <a href="#timeline">Timeline</a>
+      <a href="#start">Apply</a>
+    </div>
+  </nav>
+
   <header role="banner">
-    <div class="wrap" style="padding-bottom: .75rem;">
-      <span class="badge" aria-hidden="true">
-        Independent PI • Control Theory
-      </span>
+    <div class="wrap" style="padding-bottom:.75rem;">
+      <span class="badge" aria-hidden="true">Independent PI • Control theory</span>
     </div>
   </header>
 
   <main id="main">
-    <section class="wrap section" style="border-top: none;">
+    <section class="wrap section" style="border-top:none;">
       <div class="hero">
         <div>
-          <div class="anchor"><a class="hash" href="#enroll" aria-label="Link to heading">#</a><h1 id="enroll">Tail Stability Research Cohort — industry enrollment</h1></div>
+          <div class="anchor"><a class="hash" href="#enroll" aria-label="Link to heading">#</a><h1 id="enroll">Cut p95/p99 latency tails 30–50% in 4 weeks — no rewrites</h1></div>
           <p class="lead">
-            Stabilize p95/p99 tails, reduce spend variance, and gain predictable release velocity — without invasive rewrites.
-            This cohort is small by design and vendor-neutral.
+            Tail Stability Research Cohort — industry enrollment. Economic + control-theory methods to stabilize spend envelopes and release velocity. Vendor-neutral. Privacy-first.
           </p>
-
           <div class="cta-row">
-            <a class="btn btn-primary" href="#start" aria-label="Start enrollment">
-              Start enrollment →
-            </a>
+            <a class="btn btn-primary" href="#start" aria-label="Apply to the cohort">Apply to the cohort →</a>
+            <a class="btn btn-ghost" href="#proof" aria-label="See anonymized results">See sample results</a>
           </div>
-          <p class="muted" style="margin-top:.75rem">
-            No scheduling links. Start below and I’ll reply shortly.
-          </p>
-
+          <p class="muted" style="margin-top:.75rem">No scheduling links. Start below and I’ll reply shortly.</p>
           <p class="muted" style="margin-top:.5rem">
-            Current window: Oct 15—Dec 15 (Europe/Berlin). Capacity: 5–7 organizations; non-overlapping verticals; composite “cohort model” built across participants.
+            Current window: Oct 15—Dec 15 (Europe/Berlin). Capacity: 5–7 organizations; non-overlapping verticals; composite cohort model built across participants (metrics only).
           </p>
         </div>
 
@@ -241,7 +234,7 @@
             width="1200" height="1500"
             loading="eager" decoding="async" fetchpriority="high"
             srcset="image.jpeg 1200w"
-            sizes="(min-width:1024px) 48vw, 100vw">
+            sizes="(min-width:1024px) 42vw, 100vw">
         </figure>
       </div>
     </section>
@@ -251,7 +244,7 @@
       <div class="cards" role="list">
         <article class="card" role="listitem">
           <h3>Control-loop pathology</h3>
-          <p>Broken or absent feedback loops let tail latency &amp; spend variance drift. You can’t buy your way out once regressions compound.</p>
+          <p>Broken or absent feedback loops let tail latency and spend variance drift. You can’t buy your way out once regressions compound.</p>
           <p class="muted">Signals: oscillations, bursty p95/p99 tails, drift after deploys, chronic throttle toggling.</p>
         </article>
         <article class="card" role="listitem">
@@ -264,67 +257,6 @@
           <p>Performance is budget. Stabilizing tails unlocks predictable cost envelopes and faster, safer releases.</p>
           <p class="muted">We target p95, canary pass rates, and infra spend volatility.</p>
         </article>
-      </div>
-
-      <!-- Before/After diagram -->
-      <div class="diagram" role="img" aria-label="Two charts: before shows spiky red p95 latency; after shows smoothed green p95 with lower variance.">
-        <div class="diagram-panel">
-          <div class="diagram-title">
-            <span>Before (unstable p95)</span>
-            <span class="kpi">high variance</span>
-          </div>
-          <svg viewBox="0 0 600 220" aria-hidden="true">
-            <rect x="0" y="0" width="600" height="220" fill="none"/>
-            <path d="M0,160 C40,120 60,200 90,150 S140,80 170,170 S220,210 255,120 S290,60 320,190 S360,200 390,110 S440,70 470,195 S520,205 560,120" fill="none" stroke="var(--danger)" stroke-width="3"/>
-            <line x1="0" y1="180" x2="600" y2="180" stroke="rgba(255,255,255,.12)" stroke-width="1" stroke-dasharray="4 6"/>
-          </svg>
-        </div>
-        <div class="diagram-panel">
-          <div class="diagram-title">
-            <span>After (stabilized p95)</span>
-            <span class="kpi">variance ↓, headroom ↑</span>
-          </div>
-          <svg viewBox="0 0 600 220" aria-hidden="true">
-            <rect x="0" y="0" width="600" height="220" fill="none"/>
-            <path d="M0,170 C60,160 120,165 180,158 S300,152 360,148 S480,145 540,146 S600,147 600,147" fill="none" stroke="var(--success)" stroke-width="3"/>
-            <line x1="0" y1="180" x2="600" y2="180" stroke="rgba(255,255,255,.12)" stroke-width="1" stroke-dasharray="4 6"/>
-          </svg>
-        </div>
-      </div>
-      <p class="muted" style="margin-top:.5rem">Left: noisy, spiky p95; Right: flattened p95 after closed-loop control. We reduce post-deploy variance without blocking feature work.</p>
-    </section>
-
-    <section class="wrap section" id="exec">
-      <div class="anchor"><a class="hash" href="#exec" aria-label="Link to section">#</a><h2>For executives — what’s in it for you</h2></div>
-      <div class="cards" role="list">
-        <article class="card" role="listitem">
-          <h3>Operational stability</h3>
-          <p>Tail stabilization raises canary pass rates and shrinks rollbacks; teams spend less time firefighting and more time shipping.</p>
-        </article>
-        <article class="card" role="listitem">
-          <h3>Financial predictability</h3>
-          <p>Reduced variance and controlled peak spend. We report with receipts: p95 deltas, spend envelopes, and guardrail breaches.</p>
-        </article>
-        <article class="card" role="listitem">
-          <h3>Regulatory posture</h3>
-          <p>Better auditability and change control via explicit controllers and playbooks. Useful in regulated environments.</p>
-        </article>
-        <article class="card" role="listitem">
-          <h3>Speed w/out chaos</h3>
-          <p>Stability enables safe parallelism: more feature flags live at once, fewer backouts, higher deploy confidence.</p>
-        </article>
-        <article class="card" role="listitem">
-          <h3>Vendor leverage</h3>
-          <p>We are vendor-neutral. We document the knobs you control and the ones vendors must expose; helpful in negotiations.</p>
-        </article>
-        <article class="card" role="listitem">
-          <h3>Recruiting &amp; brand</h3>
-          <p>Clear SLOs and honest post-incidents signal engineering maturity. That attracts senior talent.</p>
-        </article>
-      </div>
-
-      <div class="cta-row" style="margin-top:1.25rem">
-        <a class="btn btn-primary" href="#start" aria-label="Start enrollment">Start enrollment →</a>
       </div>
     </section>
 
@@ -349,11 +281,13 @@
                 <line x1="0" y1="100" x2="720" y2="100"/><line x1="0" y1="60" x2="720" y2="60"/>
               </g>
               <!-- pre-pilot volatility (red) -->
-              <path d="M0,210 C40,120 80,250 120,170 S200,120 240,230 S320,270 360,150 S400,90 440,240" fill="none" stroke="var(--danger)" stroke-width="3" opacity=".85"/>
-              <!-- pilot starts marker -->
+              <path d="M0,210 C40,120 80,250 120,170 S200,120 240,230 S320,270 360,150 S400,90 440,240"
+                    fill="none" stroke="var(--danger)" stroke-width="3" opacity=".85"/>
+              <!-- pilot start marker -->
               <line x1="460" y1="40" x2="460" y2="270" stroke="rgba(34,211,238,.55)" stroke-dasharray="5 6" />
-              <!-- pilot period (green) -->
-              <path d="M460,190 C500,180 540,170 580,165 S660,158 720,156" fill="none" stroke="var(--success)" stroke-width="3"/>
+              <!-- pilot period (green, dashed for colorblind) -->
+              <path d="M460,190 C500,180 540,170 580,165 S660,158 720,156"
+                    fill="none" stroke="var(--success)" stroke-width="3" stroke-dasharray="5 4"/>
               <!-- variance band (green, faint) -->
               <path d="M460,205 C500,195 540,185 580,180 S660,173 720,171" fill="none" stroke="rgba(34,197,94,.35)" stroke-width="2"/>
               <path d="M460,176 C500,168 540,160 580,156 S660,150 720,148" fill="none" stroke="rgba(34,197,94,.35)" stroke-width="2"/>
@@ -367,34 +301,34 @@
           <div class="stat">
             <div class="label">p99 tail</div>
             <div class="num">−42%</div>
-            <div class="note">Week-over-week improvement by end of pilot</div>
+            <div class="note">Improvement after 4 weeks</div>
           </div>
           <div class="stat" style="margin-top:.75rem">
             <div class="label">Incident rate</div>
             <div class="num">−28%</div>
-            <div class="note">Sev-3/4 prod incidents (rolling 30 days)</div>
+            <div class="note">Sev-3/4 production incidents (rolling 30 days)</div>
           </div>
           <div class="stat" style="margin-top:.75rem">
             <div class="label">Peak spend variance</div>
             <div class="num">−35%</div>
-            <div class="note">95th pct hourly infra cost during traffic spikes</div>
+            <div class="note">95th-pct hourly infra cost during spikes</div>
           </div>
-          <p class="muted" style="margin:.9rem 0 0">Receipts available under NDA: rollout diffs, guardrail configs, and controller settings.</p>
+          <p class="muted" style="margin:.9rem 0 0">Receipts under NDA: rollout diffs, guardrail configs, and controller settings.</p>
         </aside>
       </div>
 
       <div class="cta-row" style="margin-top:1.25rem">
-        <a class="btn btn-primary" href="#start" aria-label="Start enrollment">Start enrollment →</a>
+        <a class="btn btn-primary" href="#start" aria-label="Apply to the cohort">Apply to the cohort →</a>
       </div>
     </section>
     <!-- /PROOF SECTION -->
 
     <section class="wrap section" id="method">
-      <div class="anchor"><a class="hash" href="#method" aria-label="Link to section">#</a><h2>Method &amp; rigor</h2></div>
+      <div class="anchor"><a class="hash" href="#method" aria-label="Link to section">#</a><h2>Method and rigor</h2></div>
       <div class="cards" role="list">
         <article class="card" role="listitem">
           <h3>Identification → control</h3>
-          <p>Map actuators (knobs) to observed outputs (tails &amp; spend). Start with canary lanes, add guardrails, then tune controller gains.</p>
+          <p>Map actuators (knobs) to observed outputs (tails and spend). Start with canary lanes, add guardrails, then tune controller gains.</p>
           <ul class="muted">
             <li>Diagnostics: oscillations, saturation, dead-bands</li>
             <li>Guardrails: bounds, hysteresis, rate limits</li>
@@ -402,8 +336,8 @@
           </ul>
         </article>
         <article class="card" role="listitem">
-          <h3>Stability &amp; optimization</h3>
-          <p>Safeguard stability before chasing optimality. The right order reduces incidents and preserves credibility.</p>
+          <h3>Stability before optimality</h3>
+          <p>Safeguard stability first. The right order reduces incidents and preserves credibility.</p>
           <ul class="muted">
             <li>Lyapunov-style thinking for safety margins</li>
             <li>Data-driven, vendor-neutral recommendations</li>
@@ -427,22 +361,22 @@
         <article class="tcard">
           <h3>Week 1 (per org)</h3>
           <ul>
-            <li>Deep-dive: telemetry access &amp; canary lanes.</li>
+            <li>Deep-dive: telemetry access and canary lanes.</li>
             <li>Identify actuators; define guardrails.</li>
             <li>Initial controller; receipts for every change.</li>
           </ul>
         </article>
         <article class="tcard">
-          <h3>Weeks 2–3 (optional)</h3>
+          <h3>Weeks 2–3 — tuning and handoff</h3>
           <ul>
             <li>Tuning for stability first, then optimality.</li>
-            <li>Documented playbooks; hand-off to owners.</li>
-            <li>Scorecard &amp; go-forward options.</li>
+            <li>Documented playbooks; handoff to owners.</li>
+            <li>Scorecard and go-forward options.</li>
           </ul>
         </article>
       </div>
       <div class="cta-row" style="margin-top:1.25rem">
-        <a class="btn btn-primary" href="#start" aria-label="Start enrollment">Start enrollment →</a>
+        <a class="btn btn-primary" href="#start" aria-label="Apply to the cohort">Apply to the cohort →</a>
       </div>
     </section>
 
@@ -456,18 +390,17 @@
         <!-- Email subject -->
         <input type="hidden" name="_subject" value="Tail Stability Cohort — new inquiry">
 
-        <div class="cards" style="--gap:1rem;">
+        <div class="cards">
           <div class="card" style="grid-column: span 6;">
-            <label for="name">Contact person</label>
+            <label for="name">Contact person <span class="req" aria-hidden="true">*</span></label>
             <input id="name" name="name" type="text" placeholder="Full name" autocomplete="name" required>
             <label for="role">Role</label>
             <input id="role" name="role" type="text" placeholder="Title / function" autocomplete="organization-title">
           </div>
           <div class="card" style="grid-column: span 6;">
-            <label for="email">Work email</label>
+            <label for="email">Work email <span class="req" aria-hidden="true">*</span></label>
             <input id="email" name="email" type="email" placeholder="name@company.tld" autocomplete="email" required>
-            <label for="site">Company website</label>
-            <!-- Accept company.tld OR full URL; we will normalize to https:// on submit -->
+            <label for="site">Company website <span class="req" aria-hidden="true">*</span></label>
             <input id="site" name="website" type="text" inputmode="url"
                    placeholder="company.tld"
                    pattern="^(https?:\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(:\d+)?(\/.*)?$"
@@ -476,20 +409,15 @@
           <div class="card" style="grid-column: span 12;">
             <label for="msg">Signals observed (optional)</label>
             <textarea id="msg" name="message" rows="4" placeholder="e.g., p95 spikes after deploys; canary fails when cache warms; spend variance on weekends…"></textarea>
-            <small>Privacy: We’ll use your details only to respond to your inquiry. No resale, no newsletters.</small>
+            <small>Privacy: details are used only to respond to your inquiry. No resale, no newsletters.</small>
             <div class="cta-row" style="margin-top:.75rem">
               <button class="btn btn-primary" type="submit">Send my details →</button>
+              <a class="btn btn-ghost" href="mailto:capyhust@gmail.com?subject=Tail%20Stability%20Cohort%20—%20inquiry">Prefer email? Write me</a>
             </div>
+            <small class="muted">You’ll get a response within 1 business day.</small>
           </div>
         </div>
       </form>
-
-      <!-- Single fallback email CTA below the form -->
-      <div class="cta-row" style="margin-top:1rem">
-        <a class="btn btn-ghost" href="mailto:capyhust@gmail.com?subject=Tail%20Stability%20Cohort%20—%20inquiry">
-          Prefer email? Write me →
-        </a>
-      </div>
     </section>
   </main>
 
@@ -499,32 +427,42 @@
         <h3 style="margin-top:0">About</h3>
         <p>
           Aleksandr Silantev — independent PI (control theory). I ship production-ready control patches, not slideware.
-          This cohort is vendor-neutral and privacy-first; full technical docs are provided on request and during collaboration.
+          Vendor-neutral and privacy-first; full technical docs available under NDA during collaboration.
         </p>
         <p>Contact: <a href="mailto:capyhust@gmail.com">capyhust@gmail.com</a></p>
       </div>
       <div class="footcol" id="legal">
-        <h3 style="margin-top:0">Imprint &amp; Privacy (EU)</h3>
+        <h3 style="margin-top:0">Imprint and privacy (EU)</h3>
         <p>
-          Privacy: we process details you submit only to respond to the inquiry and coordinate onboarding. No tracking cookies by default. You can request deletion at any time via <a href="mailto:capyhust@gmail.com">capyhust@gmail.com</a>.
+          We process details you submit only to respond to the inquiry and coordinate onboarding. No tracking cookies by default.
+          You can request deletion any time via <a href="mailto:capyhust@gmail.com">capyhust@gmail.com</a>.
         </p>
         <p>© 2025 Tail Stability Research Cohort. All rights reserved.</p>
       </div>
     </div>
   </footer>
 
-  <!-- Auto-normalize website field to https:// if protocol omitted -->
+  <!-- Back to top -->
+  <div class="toplink" id="toplink"><a href="#">Back to top ↑</a></div>
+
+  <!-- Normalize website field and handle back-to-top visibility -->
   <script>
     (function () {
       const form = document.querySelector('form[action*="formspree.io"]');
-      if (!form) return;
-      form.addEventListener('submit', function () {
-        const site = form.querySelector('input[name="website"]');
-        if (!site) return;
-        let v = (site.value || '').trim();
-        if (v && !/^https?:\/\//i.test(v)) {
-          site.value = 'https://' + v;
-        }
+      if (form) {
+        form.addEventListener('submit', function () {
+          const site = form.querySelector('input[name="website"]');
+          if (!site) return;
+          let v = (site.value || '').trim();
+          if (v && !/^https?:\/\//i.test(v)) site.value = 'https://' + v;
+        });
+      }
+
+      const t = document.getElementById('toplink');
+      const showAt = 600;
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > showAt) t.style.display = 'block';
+        else t.style.display = 'none';
       });
     })();
   </script>
