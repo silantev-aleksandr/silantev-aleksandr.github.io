@@ -227,6 +227,33 @@
       html:focus-within{ scroll-behavior:auto; }
       .btn,.card{ transition:none; }
     }
+        /* --- Hero image: smaller + no cropping --- */
+    .hero{
+      grid-template-columns: 1fr 0.7fr; /* a bit less space for the image on desktop */
+    }
+    
+    /* Use a width-driven box (not height-driven) and match the image ratio */
+    figure.hero-figure{
+      max-height:none;              /* remove previous cap that forced cropping */
+      width:clamp(260px, 34vw, 380px);
+      aspect-ratio: 4 / 5;          /* matches your 1200x1500 portrait */
+      justify-self:end;             /* align neatly on the right column */
+    }
+    
+    figure.hero-figure img{
+      width:100%;
+      height:100%;
+      object-fit:contain;           /* show the full photo, no crop */
+      object-position:center;
+    }
+    
+    @media (max-width: 980px){
+      .hero{ grid-template-columns: 1fr; }
+      figure.hero-figure{
+        width:min(72vw, 360px);     /* smaller on phones */
+        justify-self:center;        /* center under the text */
+      }
+    }
   </style>
 </head>
 <body>
