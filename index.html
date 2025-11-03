@@ -6,16 +6,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Tail Stability Research Cohort — Industry Enrollment</title>
   <meta name="description" content="A boutique research cohort to stabilize tail latency, reduce spend variance, and harden control loops in production systems. Enrollment limited; vendor-neutral, privacy-first.">
-  <link rel="canonical" href="https://your-domain.example/index.html"><!-- ← update after publish -->
-  <link rel="icon" href="/favicon.ico" sizes="any">
-  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
   <!-- Open Graph & Twitter -->
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Tail Stability Research Cohort">
   <meta property="og:title" content="Tail Stability Research Cohort — Industry Enrollment">
   <meta property="og:description" content="Stabilize p95/p99 tails, cut variance, and ship predictable performance. 5–7 orgs; vendor-neutral; privacy-first.">
-  <meta property="og:url" content="https://your-domain.example/index.html">
   <meta property="og:image" content="image.jpeg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="1500">
@@ -24,25 +20,14 @@
   <meta name="twitter:description" content="Stabilize p95/p99 tails, cut variance, and ship predictable performance. 5–7 orgs; vendor-neutral; privacy-first.">
   <meta name="twitter:image" content="image.jpeg">
 
-  <!-- Structured Data (Person + WebSite) -->
+  <!-- Structured Data (Person only, no placeholder URLs) -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "WebSite",
-        "name": "Tail Stability Research Cohort",
-        "url": "https://your-domain.example/index.html",
-        "description": "A boutique research cohort to stabilize tail latency and spend variance in production systems."
-      },
-      {
-        "@type": "Person",
-        "name": "Aleksandr Silantev",
-        "jobTitle": "Independent PI — Control Theory",
-        "email": "mailto:capyhust@gmail.com",
-        "url": "https://your-domain.example/index.html"
-      }
-    ]
+    "@type": "Person",
+    "name": "Aleksandr Silantev",
+    "jobTitle": "Independent PI — Control Theory",
+    "email": "mailto:capyhust@gmail.com"
   }
   </script>
 
@@ -54,9 +39,9 @@
       --text: #f5f7fa;
       --text-dim: #d1d5db;
       --line: #1f2a37;
-      --brand: #22d3ee;           /* cyan */
-      --danger: #ef4444;          /* red for 'before' */
-      --success: #22c55e;         /* green for 'after' */
+      --brand: #22d3ee;
+      --danger: #ef4444;
+      --success: #22c55e;
       --radius: 16px;
       --shadow: 0 10px 30px rgba(0,0,0,.35);
       --maxw: 1100px;
@@ -69,11 +54,11 @@
       --s3: clamp(1.6rem, 1.2rem + 1.6vw, 2.2rem);
       --s4: clamp(2.0rem, 1.6rem + 2.0vw, 2.8rem);
 
-      /* consistent vertical rhythm */
+      /* spacing */
       --section-pb: clamp(2.0rem, 4vw, 3.5rem);
       --section-pt: clamp(2.25rem, 4.5vw, 4rem);
 
-      /* bigger buttons */
+      /* buttons */
       --btn-pad-y: .95rem;
       --btn-pad-x: 1.25rem;
     }
@@ -86,6 +71,11 @@
       -moz-osx-font-smoothing: grayscale;
       margin:0;
     }
+
+    /* links */
+    a{ color: var(--text); }
+    a:hover:not(.btn){ text-decoration: underline; }
+    footer a{ color:#fff; font-weight:600; }
 
     .skip-link{
       position:absolute; left:-9999px; top:auto; width:1px; height:1px; overflow:hidden;
@@ -112,7 +102,7 @@
       display:inline-flex; align-items:center; justify-content:center; gap:.5rem;
       padding: var(--btn-pad-y) var(--btn-pad-x);
       border-radius: 999px;
-      text-decoration:none; font-weight:600; letter-spacing:.2px;
+      text-decoration:none; font-weight:700; letter-spacing:.2px;
       transition: transform .06s ease, box-shadow .2s ease, background .2s ease, color .2s ease, filter .2s ease;
       border: 1px solid transparent;
     }
@@ -182,9 +172,7 @@
     .footcol{ grid-column: span 6; }
     @media (max-width: 900px){ .footcol{ grid-column: span 12; } }
 
-    .anchor{
-      position: relative;
-    }
+    .anchor{ position: relative; }
     .anchor a.hash{
       position:absolute; left:-1.2rem; opacity:0; text-decoration:none; color: var(--muted);
     }
@@ -213,12 +201,12 @@
           </p>
 
           <div class="cta-row">
-            <a class="btn btn-primary" href="#start" aria-label="Fill out the form">
-              Fill out the form →
+            <a class="btn btn-primary" href="#start" aria-label="Start enrollment">
+              Start enrollment →
             </a>
           </div>
           <p class="muted" style="margin-top:.75rem">
-            No scheduling links. Fill out the form and I’ll reply shortly.
+            No scheduling links. Start below and I’ll reply shortly.
           </p>
 
           <p class="muted" style="margin-top:.5rem">
@@ -243,7 +231,7 @@
       <div class="cards" role="list">
         <article class="card" role="listitem">
           <h3>Control-loop pathology</h3>
-          <p>Broken or absent feedback loops let tail latency & spend variance drift. You can’t buy your way out once regressions compound.</p>
+          <p>Broken or absent feedback loops let tail latency &amp; spend variance drift. You can’t buy your way out once regressions compound.</p>
           <p class="muted">Signals: oscillations, bursty p95/p99 tails, drift after deploys, chronic throttle toggling.</p>
         </article>
         <article class="card" role="listitem">
@@ -258,7 +246,7 @@
         </article>
       </div>
 
-      <!-- Before/After diagram with clear red and green graphics -->
+      <!-- Before/After diagram -->
       <div class="diagram" role="img" aria-label="Two charts: before shows spiky red p95 latency; after shows smoothed green p95 with lower variance.">
         <div class="diagram-panel">
           <div class="diagram-title">
@@ -266,23 +254,8 @@
             <span class="kpi">high variance</span>
           </div>
           <svg viewBox="0 0 600 220" aria-hidden="true">
-            <defs>
-              <linearGradient id="r" x1="0" x2="0" y1="0" y2="1">
-                <stop offset="0" stop-color="var(--danger)" stop-opacity=".9"/>
-                <stop offset="1" stop-color="var(--danger)" stop-opacity=".15"/>
-              </linearGradient>
-            </defs>
             <rect x="0" y="0" width="600" height="220" fill="none"/>
-            <!-- spiky red line -->
-            <path d="M0,160
-                     C40,120 60,200 90,150
-                     S140,80 170,170
-                     S220,210 255,120
-                     S290,60 320,190
-                     S360,200 390,110
-                     S440,70 470,195
-                     S520,205 560,120" fill="none" stroke="var(--danger)" stroke-width="3"/>
-            <!-- baseline -->
+            <path d="M0,160 C40,120 60,200 90,150 S140,80 170,170 S220,210 255,120 S290,60 320,190 S360,200 390,110 S440,70 470,195 S520,205 560,120" fill="none" stroke="var(--danger)" stroke-width="3"/>
             <line x1="0" y1="180" x2="600" y2="180" stroke="rgba(255,255,255,.12)" stroke-width="1" stroke-dasharray="4 6"/>
           </svg>
         </div>
@@ -292,20 +265,8 @@
             <span class="kpi">variance ↓, headroom ↑</span>
           </div>
           <svg viewBox="0 0 600 220" aria-hidden="true">
-            <defs>
-              <linearGradient id="g" x1="0" x2="0" y1="0" y2="1">
-                <stop offset="0" stop-color="var(--success)" stop-opacity=".9"/>
-                <stop offset="1" stop-color="var(--success)" stop-opacity=".15"/>
-              </linearGradient>
-            </defs>
             <rect x="0" y="0" width="600" height="220" fill="none"/>
-            <!-- smoothed green line -->
-            <path d="M0,170
-                     C60,160 120,165 180,158
-                     S300,152 360,148
-                     S480,145 540,146
-                     S600,147 600,147" fill="none" stroke="var(--success)" stroke-width="3"/>
-            <!-- baseline -->
+            <path d="M0,170 C60,160 120,165 180,158 S300,152 360,148 S480,145 540,146 S600,147 600,147" fill="none" stroke="var(--success)" stroke-width="3"/>
             <line x1="0" y1="180" x2="600" y2="180" stroke="rgba(255,255,255,.12)" stroke-width="1" stroke-dasharray="4 6"/>
           </svg>
         </div>
@@ -337,13 +298,13 @@
           <p>We are vendor-neutral. We document the knobs you control and the ones vendors must expose; helpful in negotiations.</p>
         </article>
         <article class="card" role="listitem">
-          <h3>Recruiting & brand</h3>
+          <h3>Recruiting &amp; brand</h3>
           <p>Clear SLOs and honest post-incidents signal engineering maturity. That attracts senior talent.</p>
         </article>
       </div>
 
       <div class="cta-row" style="margin-top:1.25rem">
-        <a class="btn btn-primary" href="#start" aria-label="Fill out the form">Fill out the form →</a>
+        <a class="btn btn-primary" href="#start" aria-label="Start enrollment">Start enrollment →</a>
       </div>
     </section>
 
@@ -378,7 +339,7 @@
           <h3>Oct 15 → Dec 15</h3>
           <ul>
             <li>Brief intro call (optional).</li>
-            <li>Fill out the form with website, contact person, and signals (optional).</li>
+            <li>Start below with your website, contact person, and signals (optional).</li>
             <li>We confirm fit and sequencing across the cohort.</li>
           </ul>
         </article>
@@ -400,18 +361,18 @@
         </article>
       </div>
       <div class="cta-row" style="margin-top:1.25rem">
-        <a class="btn btn-primary" href="#start" aria-label="Fill out the form">Fill out the form →</a>
+        <a class="btn btn-primary" href="#start" aria-label="Start enrollment">Start enrollment →</a>
       </div>
     </section>
 
     <section class="wrap section" id="start">
       <div class="anchor"><a class="hash" href="#start" aria-label="Link to section">#</a><h2>How to express interest</h2></div>
 
-      <!-- Form (GH Pages friendly) -->
+      <!-- Form (Formspree endpoint) -->
       <form class="form" action="https://formspree.io/f/mjkpqorl" method="POST">
         <!-- Spam honeypot -->
         <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px">
-        <!-- Optional subject -->
+        <!-- Email subject -->
         <input type="hidden" name="_subject" value="Tail Stability Cohort — new inquiry">
 
         <div class="cards" style="--gap:1rem;">
@@ -425,14 +386,18 @@
             <label for="email">Work email</label>
             <input id="email" name="email" type="email" placeholder="name@company.tld" autocomplete="email" required>
             <label for="site">Company website</label>
-            <input id="site" name="website" type="url" placeholder="https://company.tld" pattern="https?://.+" inputmode="url" required>
+            <!-- Accept company.tld OR full URL; we will normalize to https:// on submit -->
+            <input id="site" name="website" type="text" inputmode="url"
+                   placeholder="company.tld"
+                   pattern="^(https?:\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(:\d+)?(\/.*)?$"
+                   required>
           </div>
           <div class="card" style="grid-column: span 12;">
             <label for="msg">Signals observed (optional)</label>
             <textarea id="msg" name="message" rows="4" placeholder="e.g., p95 spikes after deploys; canary fails when cache warms; spend variance on weekends…"></textarea>
             <small>Privacy: We’ll use your details only to respond to your inquiry. No resale, no newsletters.</small>
             <div class="cta-row" style="margin-top:.75rem">
-              <button class="btn btn-primary" type="submit">Submit form →</button>
+              <button class="btn btn-primary" type="submit">Send my details →</button>
             </div>
           </div>
         </div>
@@ -441,7 +406,7 @@
       <!-- Single fallback email CTA below the form -->
       <div class="cta-row" style="margin-top:1rem">
         <a class="btn btn-ghost" href="mailto:capyhust@gmail.com?subject=Tail%20Stability%20Cohort%20—%20inquiry">
-          Email instead
+          Prefer email? Write me →
         </a>
       </div>
     </section>
@@ -460,19 +425,27 @@
       <div class="footcol" id="legal">
         <h3 style="margin-top:0">Imprint &amp; Privacy (EU)</h3>
         <p>
-          Controller: Your Name / Entity • Address line • City, Country. <br>
-          Purpose: respond to inquiries and coordinate cohort onboarding. Data is deleted upon request or after inactivity.
-          No tracking cookies by default; consider privacy-friendly analytics (e.g., Plausible).
+          Privacy: we process details you submit only to respond to the inquiry and coordinate onboarding. No tracking cookies by default. You can request deletion at any time via <a href="mailto:capyhust@gmail.com">capyhust@gmail.com</a>.
         </p>
-        <p>
-          © 2025 Tail Stability Research Cohort. All rights reserved.
-        </p>
+        <p>© 2025 Tail Stability Research Cohort. All rights reserved.</p>
       </div>
     </div>
   </footer>
 
-  <!-- Optional privacy-friendly analytics (example):
-  <script defer data-domain="your-domain.example" src="https://plausible.io/js/script.js"></script>
-  -->
+  <!-- Auto-normalize website field to https:// if protocol omitted -->
+  <script>
+    (function () {
+      const form = document.querySelector('form[action*="formspree.io"]');
+      if (!form) return;
+      form.addEventListener('submit', function () {
+        const site = form.querySelector('input[name="website"]');
+        if (!site) return;
+        let v = (site.value || '').trim();
+        if (v && !/^https?:\/\//i.test(v)) {
+          site.value = 'https://' + v;
+        }
+      });
+    })();
+  </script>
 </body>
 </html>
