@@ -24,7 +24,7 @@
   <meta name="twitter:description" content="Stabilize p95/p99 tails, cut variance, and ship predictable performance. 5–7 orgs; vendor-neutral; privacy-first.">
   <meta name="twitter:image" content="image.jpeg">
 
-  <!-- Structured Data (Person + WebSite + small FAQ) -->
+  <!-- Structured Data (Person + WebSite) -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -39,28 +39,8 @@
         "@type": "Person",
         "name": "Aleksandr Silantev",
         "jobTitle": "Independent PI — Control Theory",
+        "email": "mailto:capyhust@gmail.com",
         "url": "https://your-domain.example/index.html"
-      },
-      {
-        "@type": "FAQPage",
-        "mainEntity": [
-          {
-            "@type": "Question",
-            "name": "What is the commitment?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Initial deep-dive of production signals, canary guardrails, then iterative controller tuning with weekly check-ins."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "Do you require code changes?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "No fundamental rewrites. We integrate with your telemetry and deployment lanes to add closed-loop control."
-            }
-          }
-        ]
       }
     ]
   }
@@ -93,7 +73,7 @@
       --section-pb: clamp(2.0rem, 4vw, 3.5rem);
       --section-pt: clamp(2.25rem, 4.5vw, 4rem);
 
-      /* bigger buttons per your request */
+      /* bigger buttons */
       --btn-pad-y: .95rem;
       --btn-pad-x: 1.25rem;
     }
@@ -233,18 +213,12 @@
           </p>
 
           <div class="cta-row">
-            <a class="btn btn-primary" href="#start" aria-label="Send website and contact person via form">
-              Send website &amp; contact →
-            </a>
-            <a class="btn btn-ghost" href="mailto:expunity5@gmail.com?subject=Tail%20Stability%20Cohort%20—%20request%20scorecard" rel="nofollow">
-              Request scorecard →
-            </a>
-            <a class="btn btn-ghost" href="#onepager">
-              Get 1-pager overview →
+            <a class="btn btn-primary" href="#start" aria-label="Fill out the form">
+              Fill out the form →
             </a>
           </div>
           <p class="muted" style="margin-top:.75rem">
-            No scheduling link to chase. Just send your company website and the contact person. I’ll reply with the 1-pager and an optional scorecard.
+            No scheduling links. Fill out the form and I’ll reply shortly.
           </p>
 
           <p class="muted" style="margin-top:.5rem">
@@ -369,8 +343,7 @@
       </div>
 
       <div class="cta-row" style="margin-top:1.25rem">
-        <a class="btn btn-primary" href="#start">Send website &amp; contact →</a>
-        <a class="btn btn-ghost" href="mailto:expunity5@gmail.com?subject=Tail%20Stability%20Cohort%20—%20request%20scorecard">Request scorecard →</a>
+        <a class="btn btn-primary" href="#start" aria-label="Fill out the form">Fill out the form →</a>
       </div>
     </section>
 
@@ -395,13 +368,6 @@
             <li>No invasive rewrites required</li>
           </ul>
         </article>
-        <article class="card" role="listitem" id="onepager">
-          <h3>1-pager overview</h3>
-          <p>Short, non-confidential description of scope, steps, and deliverables. Ask for it via the form or email below.</p>
-          <div class="cta-row">
-            <a class="btn btn-ghost" href="mailto:expunity5@gmail.com?subject=Tail%20Stability%20Cohort%20—%20request%20one-pager">Email for 1-pager →</a>
-          </div>
-        </article>
       </div>
     </section>
 
@@ -412,7 +378,7 @@
           <h3>Oct 15 → Dec 15</h3>
           <ul>
             <li>Brief intro call (optional).</li>
-            <li>Share website + contact person + problem signals.</li>
+            <li>Fill out the form with website, contact person, and signals (optional).</li>
             <li>We confirm fit and sequencing across the cohort.</li>
           </ul>
         </article>
@@ -434,27 +400,20 @@
         </article>
       </div>
       <div class="cta-row" style="margin-top:1.25rem">
-        <a class="btn btn-primary" href="#start">Send website &amp; contact →</a>
+        <a class="btn btn-primary" href="#start" aria-label="Fill out the form">Fill out the form →</a>
       </div>
     </section>
 
     <section class="wrap section" id="start">
       <div class="anchor"><a class="hash" href="#start" aria-label="Link to section">#</a><h2>How to express interest</h2></div>
 
-      <div class="cards" style="margin-bottom:1rem">
-        <article class="card" style="grid-column: span 12;">
-          <h3>One simple email</h3>
-          <p>Reply with your company website URL and the contact person (name &amp; role). That’s it — I’ll reply with the 1-pager and an optional scorecard. Or use the short form below.</p>
-          <div class="cta-row">
-            <a class="btn btn-ghost" href="mailto:expunity5@gmail.com?subject=Tail%20Stability%20Cohort%20—%20interest&body=Company%20website%3A%20%0AContact%20person%20(name%20%2B%20role)%3A%20%0ASignals%20observed%20(optional)%3A%20">
-              Send website &amp; contact →
-            </a>
-          </div>
-        </article>
-      </div>
+      <!-- Form (GH Pages friendly) -->
+      <form class="form" action="https://formspree.io/f/mjkpqorl" method="POST">
+        <!-- Spam honeypot -->
+        <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px">
+        <!-- Optional subject -->
+        <input type="hidden" name="_subject" value="Tail Stability Cohort — new inquiry">
 
-      <!-- Minimal form (GH Pages friendly with serverless endpoint; replace action with your provider) -->
-      <form class="form" action="https://formspree.io/f/your-endpoint" method="POST">
         <div class="cards" style="--gap:1rem;">
           <div class="card" style="grid-column: span 6;">
             <label for="name">Contact person</label>
@@ -473,12 +432,18 @@
             <textarea id="msg" name="message" rows="4" placeholder="e.g., p95 spikes after deploys; canary fails when cache warms; spend variance on weekends…"></textarea>
             <small>Privacy: We’ll use your details only to respond to your inquiry. No resale, no newsletters.</small>
             <div class="cta-row" style="margin-top:.75rem">
-              <button class="btn btn-primary" type="submit">Send website &amp; contact →</button>
-              <a class="btn btn-ghost" href="mailto:expunity5@gmail.com">Or email instead</a>
+              <button class="btn btn-primary" type="submit">Submit form →</button>
             </div>
           </div>
         </div>
       </form>
+
+      <!-- Single fallback email CTA below the form -->
+      <div class="cta-row" style="margin-top:1rem">
+        <a class="btn btn-ghost" href="mailto:capyhust@gmail.com?subject=Tail%20Stability%20Cohort%20—%20inquiry">
+          Email instead
+        </a>
+      </div>
     </section>
   </main>
 
@@ -490,7 +455,7 @@
           Aleksandr Silantev — independent PI (control theory). I ship production-ready control patches, not slideware.
           This cohort is vendor-neutral and privacy-first; full technical docs are provided on request and during collaboration.
         </p>
-        <p>Contact: <a href="mailto:expunity5@gmail.com">expunity5@gmail.com</a></p>
+        <p>Contact: <a href="mailto:capyhust@gmail.com">capyhust@gmail.com</a></p>
       </div>
       <div class="footcol" id="legal">
         <h3 style="margin-top:0">Imprint &amp; Privacy (EU)</h3>
