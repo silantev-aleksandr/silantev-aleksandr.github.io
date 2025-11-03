@@ -142,6 +142,24 @@
       }
     }
 
+    /* Enhance spacing and side gutters on narrow screens to prevent text from touching borders */
+    @media (max-width: 600px){
+      .wrap{
+        /* Increase horizontal padding on small devices, including safe-area insets */
+        padding-left:calc(clamp(20px, 7vw, 40px) + env(safe-area-inset-left));
+        padding-right:calc(clamp(20px, 7vw, 40px) + env(safe-area-inset-right));
+      }
+      /* Give cards and panels extra breathing room */
+      .card{
+        padding:1.25rem;
+      }
+      .timeline .tcard,
+      .proof-right,
+      .form{
+        padding:1.25rem;
+      }
+    }
+
     /* sticky mini-nav for quick jumps */
     .sticky-nav{
       position:sticky; top:0; z-index:50;
