@@ -129,6 +129,19 @@
     .btn-ghost{ background:transparent; color:var(--text); border-color:#4b6177; }
     .btn-ghost:hover{ background:rgba(255,255,255,.04); transform:translateY(-1px); }
 
+    /* On very narrow viewports, stack CTA buttons vertically for better alignment */
+    @media (max-width: 600px){
+      .cta-row{
+        flex-direction:column;
+        align-items:stretch;
+        gap:.6rem;
+      }
+      .cta-row .btn{
+        width:100%;
+        justify-content:center;
+      }
+    }
+
     /* sticky mini-nav for quick jumps */
     .sticky-nav{
       position:sticky; top:0; z-index:50;
@@ -227,31 +240,50 @@
       html:focus-within{ scroll-behavior:auto; }
       .btn,.card{ transition:none; }
     }
-        /* --- Hero image: smaller + no cropping --- */
+    /* --- Improved hero image sizing and mobile layout --- */
+    /* On desktop, allocate a modest fraction of space for the portrait */
     .hero{
-      grid-template-columns: 1fr 0.7fr; /* a bit less space for the image on desktop */
+      grid-template-columns: 1fr 0.7fr;
     }
-    
-    /* Use a width-driven box (not height-driven) and match the image ratio */
+
+    /* Base figure styles: give the portrait its own card look */
     figure.hero-figure{
-      max-height:none;              /* remove previous cap that forced cropping */
+      margin:0;
+      background:#0c131b;
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      overflow:hidden;
+      box-shadow:var(--shadow);
+      /* width-driven sizing – do not force a fixed aspect ratio */
       width:clamp(260px, 34vw, 380px);
-      aspect-ratio: 4 / 5;          /* matches your 1200x1500 portrait */
-      justify-self:end;             /* align neatly on the right column */
+      max-height:none;
+      /* remove any previously set aspect ratio so the image can determine height */
+      aspect-ratio:auto;
+      justify-self:end;
     }
-    
+
     figure.hero-figure img{
+      display:block;
       width:100%;
-      height:100%;
-      object-fit:contain;           /* show the full photo, no crop */
+      height:auto;
+      /* let the image fill its container naturally; object-fit has no effect when height is auto */
+      object-fit:cover;
       object-position:center;
     }
-    
+
+    /* Mobile adjustments: stack the portrait below the text and align left with full width */
     @media (max-width: 980px){
-      .hero{ grid-template-columns: 1fr; }
+      .hero{ grid-template-columns:1fr; }
       figure.hero-figure{
-        width:min(72vw, 360px);     /* smaller on phones */
-        justify-self:center;        /* center under the text */
+        width:100%;
+        max-width:520px;
+        justify-self:start;
+        /* add breathing space between the text and the image */
+        margin-top:1.25rem;
+      }
+      figure.hero-figure img{
+        height:auto;
+        object-fit:cover;
       }
     }
   </style>
@@ -301,7 +333,7 @@
             width="1200" height="1500"
             loading="eager" decoding="async" fetchpriority="high"
             srcset="image.jpeg 1200w"
-            sizes="(min-width:1024px) 42vw, 100vw">
+            sizes="(min-width:1024px) 34vw, 100vw">
         </figure>
       </div>
     </section>
