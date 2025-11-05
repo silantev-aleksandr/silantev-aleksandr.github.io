@@ -143,7 +143,7 @@
       .cta-row .btn{ width:100%; max-width:560px; margin-inline:auto; justify-content:center; }
     }
 
-    /* ----- sticky nav (with mobile toggle) ----- */
+    /* ----- sticky nav (no mobile toggle; links always visible & wrap) ----- */
     .sticky-nav{
       position:sticky; top:0; z-index:50;
       background:rgba(11,18,25,.85); backdrop-filter:saturate(140%) blur(6px);
@@ -154,20 +154,10 @@
       display:flex; align-items:center; justify-content:space-between;
       gap:.75rem; padding:.5rem 0;
     }
-    .nav-toggle{
-      display:none; border:1px solid var(--line); background:var(--panel); color:#fff;
-      border-radius:999px; padding:.4rem .7rem; font-weight:600;
-    }
-    .nav-links{ display:flex; gap:1rem; align-items:center; flex-wrap:wrap; }
+    .nav-links{ display:flex; gap:.75rem 1rem; align-items:center; flex-wrap:wrap; }
     .nav-links a{ font-size:.95rem; color:var(--text-dim); text-decoration:none; padding:.35rem .55rem; border-radius:999px; border:1px solid transparent; }
     .nav-links a:hover{ color:#fff; border-color:var(--line); }
     .nav-links a.active{ color:#041018; background:var(--brand); border-color:transparent; }
-
-    @media (max-width:720px){
-      .nav-toggle{ display:inline-block; }
-      .nav-links{ display:none; flex-direction:column; align-items:flex-start; gap:.25rem; padding:.35rem 0; }
-      .nav-links.open{ display:flex; }
-    }
 
     /* ----- HERO (deduplicated & aligned) ----- */
     .hero{
@@ -183,7 +173,7 @@
       background:#0c131b; border:1px solid var(--line); border-radius:var(--radius);
       overflow:hidden; box-shadow:var(--shadow);
       width:clamp(260px, 34vw, 420px); max-height:none; aspect-ratio:auto;
-      background-image:linear-gradient(180deg,#111a24,#0c131b); /* graceful fallback if image fails */
+      background-image:linear-gradient(180deg,#111a24,#0c131b);
     }
     figure.hero-figure img{ width:100%; height:auto; object-fit:cover; object-position:center 20%; }
     .hero-cap{ margin:.6rem 0 0; color:var(--muted); font-size:.92rem; text-align:right; }
@@ -222,7 +212,7 @@
     .shot-dot:nth-child(2){ background:#f59e0b; }
     .shot-dot:nth-child(3){ background:#10b981; }
     .shot-cap{ position:absolute; right:.75rem; top:.35rem; font-size:.8rem; color:var(--muted); }
-    .shot svg{ width:100%; height:auto; aspect-ratio: 12 / 5; }  /* responsive instead of fixed 300px */
+    .shot svg{ width:100%; height:auto; aspect-ratio: 12 / 5; }
     .shot-watermark{ position:absolute; inset:auto 0 8px 0; text-align:center; color:rgba(255,255,255,.75); font-size:.8rem; }
 
     /* ----- timeline ----- */
@@ -248,7 +238,7 @@
     @media (max-width:900px){ .footcol{ grid-column:span 12; } }
 
     /* ----- hash anchors: headers aligned with text (no left padding) ----- */
-    .anchor{ position:relative; /* no padding-left here */ }
+    .anchor{ position:relative; }
     .anchor a.hash{
       position:absolute;
       left:-1.25rem; /* sits in the gutter; heading remains aligned with body text */
@@ -258,7 +248,7 @@
     }
     .anchor a.hash:focus,
     .anchor:hover a.hash{ opacity:.9; pointer-events:auto; }
-    @media (max-width:420px){ .anchor a.hash{ display:none; } } /* avoid tiny screens/gutters */
+    @media (max-width:420px){ .anchor a.hash{ display:none; } }
 
     /* back-to-top: lifted higher to avoid overlapping CTAs; respects safe-area */
     .toplink{
@@ -279,11 +269,10 @@
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
 
-  <!-- Sticky mini-nav -->
+  <!-- Sticky nav (no toggle) -->
   <nav class="sticky-nav" aria-label="Quick section links">
     <div class="wrap nav-inner">
-      <button class="nav-toggle" aria-expanded="false" aria-controls="nav-links">Menu</button>
-      <div id="nav-links" class="nav-links">
+      <div class="nav-links">
         <a href="#why">Why</a>
         <a href="#proof">Results</a>
         <a href="#method">Method</a>
@@ -396,7 +385,7 @@
             <div class="num">−42%</div>
             <div class="note">Improvement after 4 weeks</div>
           </div>
-          <div class="stat" style="margin-top:.75rem">
+          <div class="stat" style="margin-top:.75rem)">
             <div class="label">Incident rate</div>
             <div class="num">−28%</div>
             <div class="note">Sev-3/4 production incidents (rolling 30 days)</div>
@@ -510,36 +499,36 @@
     </section>
   </main>
 
-<footer role="contentinfo">
-  <div class="wrap footgrid">
-    <div class="footcol">
-      <h3 style="margin-top:0">About</h3>
-      <p>
-        Aleksandr Silantev — independent PI (control theory). I ship production-ready control patches, not slideware.
-        Vendor-neutral and privacy-first; full technical docs available under NDA during collaboration.
-      </p>
-      <p>
-        Contact:
-        <a href="mailto:capyhust@gmail.com">capyhust@gmail.com</a>
-        ·
-        <a href="tel:+4915141990752">+49&nbsp;151&nbsp;41990752</a>
-      </p>
+  <footer role="contentinfo">
+    <div class="wrap footgrid">
+      <div class="footcol">
+        <h3 style="margin-top:0">About</h3>
+        <p>
+          Aleksandr Silantev — independent PI (control theory). I ship production-ready control patches, not slideware.
+          Vendor-neutral and privacy-first; full technical docs available under NDA during collaboration.
+        </p>
+        <p>
+          Contact:
+          <a href="mailto:capyhust@gmail.com">capyhust@gmail.com</a>
+          ·
+          <a href="tel:+4915141990752">+49&nbsp;151&nbsp;41990752</a>
+        </p>
+      </div>
+      <div class="footcol" id="legal">
+        <h3 style="margin-top:0">Imprint and privacy (EU)</h3>
+        <p>
+          We process details you submit only to respond to the inquiry and coordinate onboarding. No tracking cookies by default.
+          You can request deletion any time via <a href="mailto:capyhust@gmail.com">capyhust@gmail.com</a>.
+        </p>
+        <p>© 2025 Tail Stability Research Cohort. All rights reserved.</p>
+      </div>
     </div>
-    <div class="footcol" id="legal">
-      <h3 style="margin-top:0">Imprint and privacy (EU)</h3>
-      <p>
-        We process details you submit only to respond to the inquiry and coordinate onboarding. No tracking cookies by default.
-        You can request deletion any time via <a href="mailto:capyhust@gmail.com">capyhust@gmail.com</a>.
-      </p>
-      <p>© 2025 Tail Stability Research Cohort. All rights reserved.</p>
-    </div>
-  </div>
-</footer>
+  </footer>
 
   <!-- Back to top -->
   <div class="toplink" id="toplink"><a href="#">Back to top ↑</a></div>
 
-  <!-- Nav toggle + active-section highlighting + website normalizer + back-to-top visibility -->
+  <!-- Active-section highlighting + website normalizer + back-to-top visibility -->
   <script>
     (function () {
       /* Normalize site URL field */
@@ -560,16 +549,6 @@
         if (window.scrollY > showAt) t.style.display = 'block';
         else t.style.display = 'none';
       });
-
-      /* Mobile nav toggle */
-      const toggle = document.querySelector('.nav-toggle');
-      const linksBox = document.getElementById('nav-links');
-      if (toggle && linksBox) {
-        toggle.addEventListener('click', () => {
-          const open = linksBox.classList.toggle('open');
-          toggle.setAttribute('aria-expanded', String(open));
-        });
-      }
 
       /* Active section highlight */
       const linkEls = Array.from(document.querySelectorAll('.nav-links a'));
